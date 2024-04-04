@@ -1,0 +1,6 @@
+cd nestjs-text-summarization
+npm run commitlint
+cd ../ng-text-summarization-app
+npm run commitlint
+cd ..
+

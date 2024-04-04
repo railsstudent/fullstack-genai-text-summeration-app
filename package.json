@@ -1,0 +1,15 @@
+{
+  "name": "fullstack-genai-text-summeration-app",
+  "version": "1.0.0",
+  "description": "Full stack app that uses langchain and prompts to summerize text of a web page",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "9.0.11"
+  }
+}

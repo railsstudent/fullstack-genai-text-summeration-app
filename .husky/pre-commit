@@ -1,0 +1,5 @@
+cd nestjs-text-summarization
+npm run pre-commit
+cd ../ng-text-summarization-app
+npm run lint
+cd ..
