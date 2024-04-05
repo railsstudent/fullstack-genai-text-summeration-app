@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-text-summaration-app": {
+    "ng-text-summarization-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
