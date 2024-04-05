@@ -1,0 +1,2 @@
+export const TRANSLATOR = 'TRANSLATOR';
+export const GOOGLE_CHAT_MODEL = 'GOOGLE_CHAT_MODEL';
