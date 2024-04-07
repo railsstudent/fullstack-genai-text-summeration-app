@@ -19,10 +19,10 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'summarize-page',
+    redirectTo: 'summarization-page',
   },
   {
     path: '**',
-    redirectTo: 'summarize-page'
+    redirectTo: 'summarization-page'
   }
 ];

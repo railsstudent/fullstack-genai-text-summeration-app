@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { SummarizationShellComponent } from './summarization/summarization-shell/summarization-shell.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: '<<router-outlet />',
+  imports: [SummarizationShellComponent],
+  template: '<app-summarization-shell />',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
