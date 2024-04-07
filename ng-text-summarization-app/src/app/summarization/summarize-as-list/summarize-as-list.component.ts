@@ -1,19 +1,21 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, viewChild } from '@angular/core';
-import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box.component';
-import { SummarizationService } from '../services/summarization.service';
-import { SummarizationModel } from '../interfaces/summarization.interface';
 import { outputToObservable, toSignal } from '@angular/core/rxjs-interop';
 import { filter, scan, tap } from 'rxjs';
 import { SummarizationResult } from '../interfaces/summarization-result.interface';
+import { TranslatedSummarizationModel } from '../interfaces/summarization.interface';
+import { LanguageSelectorComponent } from '../language-selectors/language-selector.component';
+import { SummarizationService } from '../services/summarization.service';
+import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box.component';
 
 @Component({
   selector: 'app-summarize-as-list',
   standalone: true,
-  imports: [WebpageInputBoxComponent],
+  imports: [WebpageInputBoxComponent, LanguageSelectorComponent],
   template: `
     <div class="container">
       <h2>Ng Summary List Demo</h2>
       <div class="summarization">
+        <app-language-selector  [languages]="languages" [(language)]="language" />
         <app-webpage-input-box #box [isLoading]="vm.isLoading" />
       </div>
       <!-- <app-translation-list [translationList]="vm.translationList" /> -->
@@ -32,14 +34,17 @@ import { SummarizationResult } from '../interfaces/summarization-result.interfac
 })
 export class SummarizeAsListComponent {
   isLoading = signal(false);
+  language = signal('en');
   box = viewChild.required(WebpageInputBoxComponent);
   summarizationService = inject(SummarizationService);
+  languages = this.summarizationService.getSupportedLanguages();
 
-  viewModel = computed<SummarizationModel>(() => {
+  viewModel = computed<TranslatedSummarizationModel>(() => {
     return {
       isLoading: this.isLoading(),
       // translationList: this.translationList(),
       pageUrl: this.box().pageUrl,
+      language: this.language()
     }
   });
 

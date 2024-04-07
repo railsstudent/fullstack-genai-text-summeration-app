@@ -15,3 +15,7 @@ export interface SummarizationModel {
   isLoading: boolean;
   pageUrl: OutputEmitterRef<string>,
 }
+
+export interface TranslatedSummarizationModel extends SummarizationModel {
+  language: string;
+}
