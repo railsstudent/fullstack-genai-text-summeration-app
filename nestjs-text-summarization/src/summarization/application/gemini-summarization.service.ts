@@ -4,7 +4,7 @@ import { SummarizeInput } from './interfaces/summarize-input.interface';
 import { SummarizeResult } from './interfaces/summarize-result.interface';
 
 @Injectable()
-export class SummarizationService implements Summarize {
+export class GeminiSummarizationService implements Summarize {
   summarize(input: SummarizeInput): Promise<SummarizeResult> {
     return Promise.resolve({
       url: input.url,
