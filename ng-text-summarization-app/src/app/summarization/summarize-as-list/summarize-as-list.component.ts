@@ -28,6 +28,7 @@ import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box
 
     div.summarization {
       margin-top: 1rem;
+      margin-bottom: 2rem;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush

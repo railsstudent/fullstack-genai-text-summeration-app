@@ -6,11 +6,12 @@ import { TranslatedSummarizationModel } from '../interfaces/summarization.interf
 import { LanguageSelectorComponent } from '../language-selectors/language-selector.component';
 import { SummarizationService } from '../services/summarization.service';
 import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box.component';
+import { SummarizeResultsComponent } from '../summarize-results/summarize-results.component';
 
 @Component({
   selector: 'app-summarize-translated-page',
   standalone: true,
-  imports: [WebpageInputBoxComponent, LanguageSelectorComponent],
+  imports: [WebpageInputBoxComponent, LanguageSelectorComponent, SummarizeResultsComponent],
   template: `
     <div class="container">
       <h2>Ng Translated Text Summarization Demo</h2>
@@ -18,7 +19,7 @@ import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box
         <app-language-selector  [languages]="languages" [(language)]="language" />
         <app-webpage-input-box #box [isLoading]="vm.isLoading" />
       </div>
-      <!-- <app-translation-list [translationList]="vm.translationList" /> -->
+      <app-summarize-results [results]="summary()" />
     </div>
   `,
   styles: `
@@ -28,6 +29,7 @@ import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box
 
   div.summarization {
     margin-top: 1rem;
+    margin-bottom: 2rem;
   }
 `,
   changeDetection: ChangeDetectionStrategy.OnPush

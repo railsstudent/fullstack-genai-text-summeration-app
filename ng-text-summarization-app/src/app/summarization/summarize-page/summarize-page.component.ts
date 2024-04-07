@@ -4,19 +4,20 @@ import { filter, scan, tap } from 'rxjs';
 import { SummarizationResult } from '../interfaces/summarization-result.interface';
 import { SummarizationModel } from '../interfaces/summarization.interface';
 import { SummarizationService } from '../services/summarization.service';
+import { SummarizeResultsComponent } from '../summarize-results/summarize-results.component';
 import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box.component';
 
 @Component({
   selector: 'app-summarize-page',
   standalone: true,
-  imports: [WebpageInputBoxComponent],
+  imports: [WebpageInputBoxComponent, SummarizeResultsComponent],
   template: `
     <div class="container">
       <h2>Ng Text Summarization Demo</h2>
       <div class="summarization">
         <app-webpage-input-box #box [isLoading]="vm.isLoading" />
       </div>
-      <!-- <app-translation-list [translationList]="vm.translationList" /> -->
+      <app-summarize-results [results]="summary()" />
     </div>
   `,
   styles: `
@@ -26,6 +27,7 @@ import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box
 
     div.summarization {
       margin-top: 1rem;
+      margin-bottom: 2rem;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -38,7 +40,7 @@ export class SummarizePageComponent {
   viewModel = computed<SummarizationModel>(() => {
     return {
       isLoading: this.isLoading(),
-      // translationList: this.translationList(),
+      summary: this.summary(),
       pageUrl: this.box().pageUrl,
     }
   });

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { catchError, map, of, retry, switchMap } from 'rxjs';
+import { catchError, filter, map, of, retry, switchMap } from 'rxjs';
 import config from '~assets/config.json';
 import { SummarizationResult } from '../interfaces/summarization-result.interface';
 import { Summarization } from '../interfaces/summarization.interface';
@@ -19,6 +19,7 @@ export class SummarizationService {
 
   result$  = toObservable(this.summarization)
     .pipe(
+      filter((data) => !!data.url && !!data.language),
       map((data) => ({ url: data.url, language: data.language })),
       switchMap((data) =>
         this.httpService.post<{ url: string; result: string }>(`${config.url}/summarize`, data)
