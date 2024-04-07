@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { filter, map, switchMap, retry, catchError, of } from 'rxjs';
+import { catchError, map, of, retry, switchMap } from 'rxjs';
 import config from '~assets/config.json';
-import { Summarization } from '../interfaces/summarization.interface';
 import { SummarizationResult } from '../interfaces/summarization-result.interface';
+import { Summarization } from '../interfaces/summarization.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +14,12 @@ export class SummarizationService {
 
   private summarization = signal<Summarization>({
     url: '',
-    isValid: false,
+    language: 'en',
   });
 
-  translation$  = toObservable(this.summarization)
+  result$  = toObservable(this.summarization)
     .pipe(
-      filter(({ isValid }) => isValid),
-      map(({ url, language='en' }) => ({ url, language })),
+      map((data) => ({ url: data.url, language: data.language })),
       switchMap((data) =>
         this.httpService.post<{ url: string; result: string }>(`${config.url}/summarize`, data)
           .pipe(
