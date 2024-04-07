@@ -1,6 +1,6 @@
-import { Languages } from '../types/language.type';
+import { Languages } from '../types/languages.type';
 
 export interface SummarizeInput {
   url: string;
-  language: Languages;
+  code: Languages;
 }
