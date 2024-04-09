@@ -12,4 +12,7 @@ export const env = {
     API_KEY: process.env.GOOGLE_GEMINI_API_KEY || '',
     MODEL_NAME: process.env.GOOGLE_GEMINI_MODEL || '',
   },
+  OLLAMA: {
+    BASE_URL: process.env.OLLAMA_API_URL || 'http://localhost:11434',
+  },
 };
