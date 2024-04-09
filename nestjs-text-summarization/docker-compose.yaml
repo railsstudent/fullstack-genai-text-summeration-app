@@ -1,33 +1,6 @@
 version: '3.8'
 
 services:
-  backend:
-    build:
-      context: ./nestjs-text-summarization
-      dockerfile: Dockerfile
-    environment:
-      - PORT=${PORT}
-      - GOOGLE_GEMINI_API_KEY=${GOOGLE_GEMINI_API_KEY}
-      - GOOGLE_GEMINI_MODEL=${GOOGLE_GEMINI_MODEL}
-    ports:
-      - "${PORT}:${PORT}"
-    depends_on:
-      - ollama
-      - ollama-webui
-    networks:
-      - ai
-    restart: always
-  web:
-    build:
-      context: ./ng-text-summarization-app
-      dockerfile: Dockerfile
-    depends_on:
-      - backend
-    ports:
-      - "${WEB_PORT}:${WEB_PORT}"
-    networks:
-      - ai
-    restart: always
   ollama:
     image: ollama/ollama:latest
     ports:

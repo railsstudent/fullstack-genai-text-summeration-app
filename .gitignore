@@ -39,4 +39,4 @@ lerna-debug.log*
 **/**/dist
 **/**/node_modules
 .angulardoc.json
-
+ollama
