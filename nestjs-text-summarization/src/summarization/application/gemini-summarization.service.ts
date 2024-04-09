@@ -3,8 +3,8 @@ import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { Inject, Injectable } from '@nestjs/common';
 import { loadSummarizationChain } from 'langchain/chains';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
-import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
-import { GOOGLE_CHAT_MODEL } from '~core/constants/translator.constant';
+import { CharacterTextSplitter } from 'langchain/text_splitter';
+import { GOOGLE_LLM } from '~core/constants/translator.constant';
 import { getLanguages } from '~core/utilities/languages.util';
 import { LANGUAGE_NAMES } from '../../core/enums/language_names.enum';
 import { SummarizeInput } from './interfaces/summarize-input.interface';
@@ -15,7 +15,7 @@ import { Summarize } from './interfaces/summarize.interface';
 export class GeminiSummarizationService implements Summarize {
   private readonly languageMapper = getLanguages();
 
-  constructor(@Inject(GOOGLE_CHAT_MODEL) private llm: ChatGoogleGenerativeAI) {}
+  constructor(@Inject(GOOGLE_LLM) private llm: ChatGoogleGenerativeAI) {}
 
   async summarize(input: SummarizeInput): Promise<SummarizeResult> {
     const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;
@@ -32,15 +32,14 @@ export class GeminiSummarizationService implements Summarize {
       template,
       inputVariables: ['text'],
     });
-    const textSplitter = new RecursiveCharacterTextSplitter({ chunkSize: 3000, chunkOverlap: 500 });
+
+    const textSplitter = new CharacterTextSplitter({ chunkSize: 3000, chunkOverlap: 500 });
     const loader = new CheerioWebBaseLoader(input.url);
     const docs = await loader.loadAndSplit(textSplitter);
 
     const chain = loadSummarizationChain(this.llm, {
       type: 'stuff',
       prompt,
-      // combineMapPrompt: prompt,
-      // combinePrompt: prompt,
       verbose: true,
     });
 

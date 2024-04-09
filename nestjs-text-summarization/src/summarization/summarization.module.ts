@@ -1,9 +1,10 @@
 import { DynamicModule, Module, Provider } from '@nestjs/common';
-import { GeminiSummarizationService } from './application/gemini-summarization.service';
-import { SummarizationController } from './presenters/http/summarization.controller';
+import { AnthropicSummarizationService } from './application/anthropic-summarization.service';
 import { SUMMARIZE_SERVICE } from './application/constants/summarize.constant';
+import { GeminiSummarizationService } from './application/gemini-summarization.service';
+import { GOOGLE_LLM_PROVIDER } from './application/providers/gemini-llm.provider';
 import { ModelTypes } from './infrastructure/model.type';
-import { GOOGLE_CHAT_MODEL_PROVIDER } from './application/providers/gemini-chat-model.provider';
+import { SummarizationController } from './presenters/http/summarization.controller';
 
 @Module({
   controllers: [SummarizationController],
@@ -12,6 +13,7 @@ export class SummarizationModule {
   static register(model: ModelTypes = 'gemini'): DynamicModule {
     const modelMap = new Map<ModelTypes, any>();
     modelMap.set('gemini', GeminiSummarizationService);
+    modelMap.set('claude', AnthropicSummarizationService);
 
     const service = modelMap.get(model) || GeminiSummarizationService;
     const providers: Provider[] = [
@@ -22,7 +24,7 @@ export class SummarizationModule {
     ];
 
     if (model === 'gemini') {
-      providers.push(GOOGLE_CHAT_MODEL_PROVIDER);
+      providers.push(GOOGLE_LLM_PROVIDER);
     }
 
     return {

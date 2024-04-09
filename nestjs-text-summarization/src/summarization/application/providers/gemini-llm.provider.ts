@@ -2,11 +2,11 @@ import { HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { Provider } from '@nestjs/common';
 import { env } from '~configs/env.config';
-import { GOOGLE_CHAT_MODEL } from '~core/constants/translator.constant';
+import { GOOGLE_LLM } from '~core/constants/translator.constant';
 
 const chatModel = new ChatGoogleGenerativeAI({
   modelName: env.GEMINI.MODEL_NAME,
-  maxOutputTokens: 128,
+  maxOutputTokens: 1024,
   safetySettings: [
     {
       category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
@@ -31,7 +31,7 @@ const chatModel = new ChatGoogleGenerativeAI({
   apiKey: env.GEMINI.API_KEY,
 });
 
-export const GOOGLE_CHAT_MODEL_PROVIDER: Provider = {
-  provide: GOOGLE_CHAT_MODEL,
+export const GOOGLE_LLM_PROVIDER: Provider = {
+  provide: GOOGLE_LLM,
   useFactory: () => chatModel,
 };
