@@ -1,5 +1,5 @@
 import { IsIn, IsNotEmpty, IsString, IsUrl } from 'class-validator';
-import { Languages } from '~summarization/application/types/languages.type';
+import { Languages } from '~core/types/languages.type';
 
 export class SummarizeDto {
   @IsUrl()

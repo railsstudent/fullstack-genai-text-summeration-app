@@ -1,4 +1,4 @@
-import { Languages } from '../types/languages.type';
+import { Languages } from '~core/types/languages.type';
 
 export interface SummarizeInput {
   url: string;

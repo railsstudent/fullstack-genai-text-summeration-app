@@ -5,24 +5,17 @@ import { loadSummarizationChain } from 'langchain/chains';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import { GOOGLE_CHAT_MODEL } from '~core/constants/translator.constant';
-import { LANGUAGE_NAMES } from './enums/language_names.enum';
+import { getLanguages } from '~core/utilities/languages.util';
+import { LANGUAGE_NAMES } from '../../core/enums/language_names.enum';
 import { SummarizeInput } from './interfaces/summarize-input.interface';
 import { SummarizeResult } from './interfaces/summarize-result.interface';
 import { Summarize } from './interfaces/summarize.interface';
-import { Languages } from './types/languages.type';
 
 @Injectable()
 export class GeminiSummarizationService implements Summarize {
-  readonly languageMapper = new Map<Languages, LANGUAGE_NAMES>();
+  private readonly languageMapper = getLanguages();
 
-  constructor(@Inject(GOOGLE_CHAT_MODEL) private llm: ChatGoogleGenerativeAI) {
-    this.languageMapper.set('en', LANGUAGE_NAMES.ENGLISH);
-    this.languageMapper.set('es', LANGUAGE_NAMES.SPANISH);
-    this.languageMapper.set('ja', LANGUAGE_NAMES.JAPANESE);
-    this.languageMapper.set('vi', LANGUAGE_NAMES.VIETNAMESE);
-    this.languageMapper.set('zh-Hans', LANGUAGE_NAMES.SIMPLIFIED_CHINESE);
-    this.languageMapper.set('zh-Hant', LANGUAGE_NAMES.TRADITIONAL_CHINESE);
-  }
+  constructor(@Inject(GOOGLE_CHAT_MODEL) private llm: ChatGoogleGenerativeAI) {}
 
   async summarize(input: SummarizeInput): Promise<SummarizeResult> {
     const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;
