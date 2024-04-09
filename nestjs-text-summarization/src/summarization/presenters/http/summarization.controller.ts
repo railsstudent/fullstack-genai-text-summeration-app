@@ -28,7 +28,7 @@ export class SummarizationController {
       },
     },
     examples: {
-      klookTaipeiEpanish: {
+      klookTaipeiSpanish: {
         value: {
           url: 'https://www.klook.com/zh-TW/activity/17290-beitou-yangmingshan-tour-taipei/',
           code: 'es',
@@ -40,7 +40,7 @@ export class SummarizationController {
           code: 'zh-Hans',
         },
       },
-      klookTaiChungEn: {
+      klookTaiChungEnglish: {
         value: {
           url: 'https://www.klook.com/zh-TW/activity/3010-cherry-blossom-wuling-farm-yilan/',
           code: 'en',
