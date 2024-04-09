@@ -26,13 +26,13 @@ export class GeminiSummarizationService implements Summarize {
 
   async summarize(input: SummarizeInput): Promise<SummarizeResult> {
     const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;
-    const template = `You are a helpful assistant who summarizes web page. If you see see markdown of sample codes, please disregard it.
+    const template = `You are a helpful assistant who summarizes web page.
     Below you find the docuemnts of the web page:
     --------
     {text}
     --------
 
-    Please Write a concise summary with the key information in ${language}. 
+    Please Write a concise summary with the key information from all the paragraphs in ${language}. 
     Summary:
     `;
     const prompt = new PromptTemplate({

@@ -46,9 +46,9 @@ export class SummarizationController {
           code: 'en',
         },
       },
-      angular: {
+      claude: {
         value: {
-          url: 'https://angular.dev/guide/signals',
+          url: 'https://www.mlyearning.org/claude-api-key/',
           code: 'zh-Hant',
         },
       },
