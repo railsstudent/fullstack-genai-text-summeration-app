@@ -26,7 +26,7 @@ export class GeminiSummarizationService implements Summarize {
 
   async summarize(input: SummarizeInput): Promise<SummarizeResult> {
     const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;
-    const template = `You are a helpful assistant who summarizes web page.
+    const template = `You are a helpful assistant who summarizes web page. If you see see markdown of sample codes, please disregard it.
     Below you find the docuemnts of the web page:
     --------
     {text}
@@ -39,13 +39,15 @@ export class GeminiSummarizationService implements Summarize {
       template,
       inputVariables: ['text'],
     });
-    const textSplitter = new RecursiveCharacterTextSplitter();
+    const textSplitter = new RecursiveCharacterTextSplitter({ chunkSize: 3000, chunkOverlap: 500 });
     const loader = new CheerioWebBaseLoader(input.url);
     const docs = await loader.loadAndSplit(textSplitter);
 
     const chain = loadSummarizationChain(this.llm, {
       type: 'stuff',
       prompt,
+      // combineMapPrompt: prompt,
+      // combinePrompt: prompt,
       verbose: true,
     });
 
