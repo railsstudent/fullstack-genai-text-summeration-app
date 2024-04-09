@@ -32,7 +32,7 @@ export class GeminiSummarizationService implements Summarize {
     {text}
     --------
 
-    Please Write a concise summary with the key information from all the paragraphs in ${language}. 
+    Please Write a concise summary that states the main topic and lists the key information in ${language}. 
     Summary:
     `;
     const prompt = new PromptTemplate({
