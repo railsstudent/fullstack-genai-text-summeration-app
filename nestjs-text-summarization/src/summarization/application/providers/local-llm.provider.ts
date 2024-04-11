@@ -3,7 +3,8 @@ import { ChatOllama } from '@langchain/community/chat_models/ollama';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { Provider } from '@nestjs/common';
 import { env } from '~configs/env.config';
-import { LLM, MODEL_NAME } from '~core/constants/translator.constant';
+import { LLM, MODEL_TYPE } from '~core/constants/translator.constant';
+import { GEMMA_2B, LLAMA2_LATEST } from '~summarization/infrastructure/constants/ollama-model-names.constant';
 import { ModelTypes } from '~summarization/infrastructure/model.type';
 
 const chatModel = new ChatGoogleGenerativeAI({
@@ -35,23 +36,26 @@ const chatModel = new ChatGoogleGenerativeAI({
 
 export const LLM_PROVIDER: Provider = {
   provide: LLM,
-  inject: [MODEL_NAME],
-  useFactory: (modelName: ModelTypes) => {
-    console.log('modelName', modelName);
-    let model = 'llama2';
-    if (modelName === 'gemma') {
-      model = 'gemma';
-    } else if (modelName === 'gemini') {
+  inject: [MODEL_TYPE],
+  useFactory: (modelType: ModelTypes) => {
+    const modelMap = new Map<ModelTypes, string>();
+    modelMap.set('gemma', GEMMA_2B);
+    modelMap.set('llama2', LLAMA2_LATEST);
+
+    const model = modelMap.get(modelType) || '';
+    console.log('model', model, 'modelType', modelType);
+    if (!model) {
       return chatModel;
     }
 
     return new ChatOllama({
-      baseUrl: env.OLLAMA.BASE_URL,
+      baseUrl: env.OLLAMA.APP_BASE_URL,
       model,
       temperature: 0.2,
       topK: 10,
       topP: 0.5,
       verbose: true,
+      numPredict: 2048, // max output tokens
     });
   },
 };
