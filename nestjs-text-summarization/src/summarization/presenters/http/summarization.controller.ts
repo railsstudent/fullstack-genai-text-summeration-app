@@ -46,9 +46,9 @@ export class SummarizationController {
           code: 'en',
         },
       },
-      claude: {
+      angularSignals: {
         value: {
-          url: 'https://www.mlyearning.org/claude-api-key/',
+          url: 'https://angular.dev/guide/signals',
           code: 'zh-Hant',
         },
       },
@@ -69,5 +69,66 @@ export class SummarizationController {
   @Post()
   summarize(@Body() dto: SummarizeDto): Promise<SummarizeResult> {
     return this.service.summarize(dto);
+  }
+
+  @ApiBody({
+    description: 'An intance of SummarizeDto',
+    required: true,
+    schema: {
+      type: 'object',
+      properties: {
+        url: {
+          type: 'string',
+          description: 'URL of the web page',
+        },
+        code: {
+          type: 'string',
+          description: 'language code',
+          enum: ['en', 'es', 'zh-Hans', 'zh-Hant', 'vi', 'ja'],
+        },
+      },
+    },
+    examples: {
+      klookTaipeiSpanish: {
+        value: {
+          url: 'https://www.klook.com/zh-TW/activity/17290-beitou-yangmingshan-tour-taipei/',
+          code: 'es',
+        },
+      },
+      klookTaipeiSimplifiedChinese: {
+        value: {
+          url: 'https://www.klook.com/zh-TW/activity/17290-beitou-yangmingshan-tour-taipei/',
+          code: 'zh-Hans',
+        },
+      },
+      klookTaiChungEnglish: {
+        value: {
+          url: 'https://www.klook.com/zh-TW/activity/3010-cherry-blossom-wuling-farm-yilan/',
+          code: 'en',
+        },
+      },
+      angularSignals: {
+        value: {
+          url: 'https://angular.dev/guide/signals',
+          code: 'zh-Hant',
+        },
+      },
+    },
+  })
+  @ApiResponse({
+    description: 'The text summary',
+    schema: {
+      type: 'object',
+      properties: {
+        url: { type: 'string', description: 'the URL of the web page' },
+        result: { type: 'string', description: 'the text summarization' },
+      },
+    },
+    status: 200,
+  })
+  @HttpCode(200)
+  @Post('bullet-points')
+  createBulletPoints(@Body() dto: SummarizeDto): Promise<SummarizeResult> {
+    return this.service.bulletPoints(dto);
   }
 }

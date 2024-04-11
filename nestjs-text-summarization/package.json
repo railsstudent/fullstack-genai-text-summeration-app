@@ -22,7 +22,6 @@
     "commitlint": "commitlint --edit $1"
   },
   "dependencies": {
-    "@langchain/anthropic": "0.1.11",
     "@langchain/community": "0.0.45",
     "@langchain/google-genai": "0.0.10",
     "@nestjs/common": "10.3.7",

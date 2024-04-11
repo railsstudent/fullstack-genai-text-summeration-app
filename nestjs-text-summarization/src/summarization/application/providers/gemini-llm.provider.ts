@@ -6,7 +6,7 @@ import { GOOGLE_LLM } from '~core/constants/translator.constant';
 
 const chatModel = new ChatGoogleGenerativeAI({
   modelName: env.GEMINI.MODEL_NAME,
-  maxOutputTokens: 1024,
+  maxOutputTokens: 2048,
   safetySettings: [
     {
       category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,

@@ -25,8 +25,47 @@ export class GeminiSummarizationService implements Summarize {
     {text}
     --------
 
-    Please write a summary that states the main topic and lists the key information in ${language}. 
+    Please write a summary that states the main topic and lists the key information in two paragraphs in ${language}. 
     Summary:
+    `;
+    const prompt = new PromptTemplate({
+      template,
+      inputVariables: ['text'],
+    });
+
+    const textSplitter = new CharacterTextSplitter({ chunkSize: 3000, chunkOverlap: 500 });
+    const loader = new CheerioWebBaseLoader(input.url);
+    const docs = await loader.loadAndSplit(textSplitter);
+
+    const chain = loadSummarizationChain(this.llm, {
+      type: 'stuff',
+      prompt,
+      verbose: true,
+    });
+
+    const chainValues = await chain.invoke({
+      input_documents: docs,
+      language,
+    });
+
+    console.log(chainValues);
+
+    return Promise.resolve({
+      url: input.url,
+      result: chainValues.text || '',
+    });
+  }
+
+  async bulletPoints(input: SummarizeInput): Promise<SummarizeResult> {
+    const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;
+    const template = `You are a helpful assistant who summarizes web page.
+    Below you find the docuemnts of the web page:
+    --------
+    {text}
+    --------
+
+    Please write a bullet point list that lists the main topic and the key information in ${language}. 
+    Bullet Point List:
     `;
     const prompt = new PromptTemplate({
       template,
