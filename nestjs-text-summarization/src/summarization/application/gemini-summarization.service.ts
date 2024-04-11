@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { loadSummarizationChain } from 'langchain/chains';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
 import { CharacterTextSplitter } from 'langchain/text_splitter';
-import { GOOGLE_LLM } from '~core/constants/translator.constant';
+import { LLM } from '~core/constants/translator.constant';
 import { getLanguages } from '~core/utilities/languages.util';
 import { LANGUAGE_NAMES } from '../../core/enums/language_names.enum';
 import { SummarizeInput } from './interfaces/summarize-input.interface';
@@ -15,7 +15,7 @@ import { Summarize } from './interfaces/summarize.interface';
 export class GeminiSummarizationService implements Summarize {
   private readonly languageMapper = getLanguages();
 
-  constructor(@Inject(GOOGLE_LLM) private llm: ChatGoogleGenerativeAI) {}
+  constructor(@Inject(LLM) private llm: ChatGoogleGenerativeAI) {}
 
   async summarize(input: SummarizeInput): Promise<SummarizeResult> {
     const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;

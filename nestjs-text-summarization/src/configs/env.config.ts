@@ -13,6 +13,6 @@ export const env = {
     MODEL_NAME: process.env.GOOGLE_GEMINI_MODEL || '',
   },
   OLLAMA: {
-    BASE_URL: process.env.OLLAMA_API_URL || 'http://localhost:11434',
+    BASE_URL: process.env.OLLAMA_BASE_URL || 'http://localhost:11434',
   },
 };

@@ -1,7 +1,8 @@
 import { DynamicModule, Module, Provider } from '@nestjs/common';
+import { MODEL_NAME } from '~core/constants/translator.constant';
 import { SUMMARIZE_SERVICE } from './application/constants/summarize.constant';
 import { GeminiSummarizationService } from './application/gemini-summarization.service';
-import { GOOGLE_LLM_PROVIDER } from './application/providers/gemini-llm.provider';
+import { LLM_PROVIDER } from './application/providers/local-llm.provider';
 import { ModelTypes } from './infrastructure/model.type';
 import { SummarizationController } from './presenters/http/summarization.controller';
 
@@ -16,13 +17,17 @@ export class SummarizationModule {
     const service = modelMap.get(model) || GeminiSummarizationService;
     const providers: Provider[] = [
       {
-        provide: SUMMARIZE_SERVICE,
-        useClass: service,
+        provide: MODEL_NAME,
+        useValue: model,
       },
+      LLM_PROVIDER,
     ];
 
     if (model === 'gemini') {
-      providers.push(GOOGLE_LLM_PROVIDER);
+      providers.push({
+        provide: SUMMARIZE_SERVICE,
+        useClass: service,
+      });
     }
 
     return {

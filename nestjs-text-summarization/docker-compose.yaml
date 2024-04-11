@@ -24,7 +24,7 @@ services:
     ports:
       - ${OLLAMA_WEB_PORT}:${OLLAMA_WEB_PORT}
     environment:
-      - '/ollama/api=${OLLAMA_API_URL}'
+      - '/ollama/api=${OLLAMA_BASE_URL}/api'
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
