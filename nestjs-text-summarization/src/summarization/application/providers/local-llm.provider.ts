@@ -56,7 +56,7 @@ export const LLM_PROVIDER: Provider = {
     return new ChatOllama({
       baseUrl: env.OLLAMA.APP_BASE_URL,
       model,
-      temperature: 0.2,
+      temperature: 0,
       topK: 10,
       topP: 0.5,
       verbose: true,

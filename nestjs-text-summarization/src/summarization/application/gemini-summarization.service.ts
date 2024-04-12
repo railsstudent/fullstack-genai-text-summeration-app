@@ -10,12 +10,20 @@ import { LANGUAGE_NAMES } from '../../core/enums/language_names.enum';
 import { SummarizeInput } from './interfaces/summarize-input.interface';
 import { SummarizeResult } from './interfaces/summarize-result.interface';
 import { Summarize } from './interfaces/summarize.interface';
+import { env } from '~configs/env.config';
 
 @Injectable()
 export class GeminiSummarizationService implements Summarize {
   private readonly languageMapper = getLanguages();
 
   constructor(@Inject(LLM) private llm: ChatGoogleGenerativeAI) {}
+
+  getLLModel(): { vendor: string; model: string } {
+    return {
+      vendor: 'Google',
+      model: env.AI.MODEL_TYPE,
+    };
+  }
 
   async summarize(input: SummarizeInput): Promise<SummarizeResult> {
     const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;

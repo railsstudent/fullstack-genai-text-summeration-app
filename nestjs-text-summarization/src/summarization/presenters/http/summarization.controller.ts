@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Inject, Post } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SUMMARIZE_SERVICE } from '~summarization/application/constants/summarize.constant';
 import { SummarizeResult } from '~summarization/application/interfaces/summarize-result.interface';
@@ -130,5 +130,21 @@ export class SummarizationController {
   @Post('bullet-points')
   createBulletPoints(@Body() dto: SummarizeDto): Promise<SummarizeResult> {
     return this.service.bulletPoints(dto);
+  }
+
+  @ApiResponse({
+    description: 'The large language model',
+    schema: {
+      type: 'object',
+      properties: {
+        vendor: { type: 'string', description: 'Vendor of the large language model' },
+        model: { type: 'string', description: 'Name of the large language model' },
+      },
+    },
+    status: 200,
+  })
+  @Get('llm')
+  getLLModel(): { vendor: string; model: string } {
+    return this.service.getLLModel();
   }
 }

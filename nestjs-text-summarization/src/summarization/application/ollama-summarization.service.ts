@@ -4,17 +4,26 @@ import { Inject, Injectable } from '@nestjs/common';
 import { loadSummarizationChain } from 'langchain/chains';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
 import { CharacterTextSplitter } from 'langchain/text_splitter';
+import { env } from '~configs/env.config';
 import { LLM } from '~core/constants/translator.constant';
 import { LANGUAGE_NAMES } from '~core/enums/language_names.enum';
 import { getLanguages } from '~core/utilities/languages.util';
 import { SummarizeInput } from './interfaces/summarize-input.interface';
 import { SummarizeResult } from './interfaces/summarize-result.interface';
+import { Summarize } from './interfaces/summarize.interface';
 
 @Injectable()
-export class OllamaSummarizationService {
+export class OllamaSummarizationService implements Summarize {
   private readonly languageMapper = getLanguages();
 
   constructor(@Inject(LLM) private ollamaLlm: ChatOllama) {}
+
+  getLLModel(): { vendor: string; model: string } {
+    return {
+      vendor: 'Ollama',
+      model: env.AI.MODEL_TYPE,
+    };
+  }
 
   async summarize(input: SummarizeInput): Promise<SummarizeResult> {
     const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;
@@ -26,6 +35,7 @@ export class OllamaSummarizationService {
 
     Please write a summary that states the main topic and lists the key information in two paragraphs in ${language}. 
     Please strictly write in the format of paragraphs and no point form.
+    When you do not support ${language}, reply "I do not support ${language}" and stop.
 
     Paragraphs:
     `;
