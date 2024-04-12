@@ -45,7 +45,9 @@ export const LLM_PROVIDER: Provider = {
     modelMap.set('llama2', LLAMA2_LATEST);
 
     const model = modelMap.get(modelType) || '';
-    logger.log(`model: ${model}, modelType, ${modelType}, env.OLLAMA.APP_BASE_URL: ${env.OLLAMA.APP_BASE_URL}`);
+    logger.log(
+      `model: ${model}, modelType, ${modelType}, model: ${model}, env.OLLAMA.APP_BASE_URL: ${env.OLLAMA.APP_BASE_URL}`,
+    );
     if (!model) {
       return chatModel;
     }
