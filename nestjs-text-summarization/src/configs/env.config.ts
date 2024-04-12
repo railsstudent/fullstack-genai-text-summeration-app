@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { ModelTypes } from '~summarization/infrastructure/model.type';
+import { ModelTypes } from '~summarization/infrastructure/types/model.type';
 
 dotenv.config();
 

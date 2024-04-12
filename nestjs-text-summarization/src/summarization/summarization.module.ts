@@ -4,8 +4,8 @@ import { SUMMARIZE_SERVICE } from './application/constants/summarize.constant';
 import { GeminiSummarizationService } from './application/gemini-summarization.service';
 import { OllamaSummarizationService } from './application/ollama-summarization.service';
 import { LLM_PROVIDER } from './application/providers/local-llm.provider';
-import { ModelTypes } from './infrastructure/model.type';
-import { SummarizationController } from './infrastructure/types/presenters/http/summarization.controller';
+import { ModelArray, ModelTypes } from './infrastructure/types/model.type';
+import { SummarizationController } from './presenters/http/summarization.controller';
 
 @Module({
   controllers: [SummarizationController],
@@ -14,8 +14,11 @@ export class SummarizationModule {
   static register(model: ModelTypes = 'gemini'): DynamicModule {
     const modelMap = new Map<ModelTypes, any>();
     modelMap.set('gemini', GeminiSummarizationService);
-    modelMap.set('gemma', OllamaSummarizationService);
-    modelMap.set('llama2', OllamaSummarizationService);
+    for (const item of ModelArray) {
+      if (item !== 'gemini') {
+        modelMap.set(item, OllamaSummarizationService);
+      }
+    }
 
     const service = modelMap.get(model) || GeminiSummarizationService;
     const providers: Provider[] = [

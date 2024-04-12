@@ -25,7 +25,9 @@ export class OllamaSummarizationService {
     --------
 
     Please write a summary that states the main topic and lists the key information in two paragraphs in ${language}. 
-    Summary:
+    Please strictly write in the format of paragraphs and no point form.
+
+    Paragraphs:
     `;
     const prompt = new PromptTemplate({
       template,

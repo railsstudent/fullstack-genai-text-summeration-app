@@ -4,8 +4,8 @@ import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { Logger, Provider } from '@nestjs/common';
 import { env } from '~configs/env.config';
 import { LLM, MODEL_TYPE } from '~core/constants/translator.constant';
-import { GEMMA_2B, LLAMA2_LATEST } from '~summarization/infrastructure/constants/ollama-model-names.constant';
-import { ModelTypes } from '~summarization/infrastructure/model.type';
+import { GEMMA_2B, LLAMA2_LATEST, PHI_LATEST } from '~summarization/infrastructure/constants/ollama-llm.constant';
+import { ModelTypes } from '~summarization/infrastructure/types/model.type';
 
 const chatModel = new ChatGoogleGenerativeAI({
   modelName: env.GEMINI.MODEL_NAME,
@@ -43,6 +43,7 @@ export const LLM_PROVIDER: Provider = {
     const modelMap = new Map<ModelTypes, string>();
     modelMap.set('gemma', GEMMA_2B);
     modelMap.set('llama2', LLAMA2_LATEST);
+    modelMap.set('phi', PHI_LATEST);
 
     const model = modelMap.get(modelType) || '';
     logger.log(
