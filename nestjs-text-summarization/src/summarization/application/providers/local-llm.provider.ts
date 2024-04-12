@@ -1,7 +1,7 @@
 import { HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
 import { ChatOllama } from '@langchain/community/chat_models/ollama';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
-import { Provider } from '@nestjs/common';
+import { Logger, Provider } from '@nestjs/common';
 import { env } from '~configs/env.config';
 import { LLM, MODEL_TYPE } from '~core/constants/translator.constant';
 import { GEMMA_2B, LLAMA2_LATEST } from '~summarization/infrastructure/constants/ollama-model-names.constant';
@@ -34,6 +34,8 @@ const chatModel = new ChatGoogleGenerativeAI({
   apiKey: env.GEMINI.API_KEY,
 });
 
+const logger = new Logger('LLM_PROVIDER');
+
 export const LLM_PROVIDER: Provider = {
   provide: LLM,
   inject: [MODEL_TYPE],
@@ -43,7 +45,7 @@ export const LLM_PROVIDER: Provider = {
     modelMap.set('llama2', LLAMA2_LATEST);
 
     const model = modelMap.get(modelType) || '';
-    console.log('model', model, 'modelType', modelType);
+    logger.log(`model: ${model}, modelType, ${modelType}, env.OLLAMA.APP_BASE_URL: ${env.OLLAMA.APP_BASE_URL}`);
     if (!model) {
       return chatModel;
     }
