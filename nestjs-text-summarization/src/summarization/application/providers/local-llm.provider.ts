@@ -28,7 +28,7 @@ const chatModel = new ChatGoogleGenerativeAI({
       threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
     },
   ],
-  temperature: 0.2,
+  temperature: 0,
   topK: 10,
   topP: 0.5,
   apiKey: env.GEMINI.API_KEY,

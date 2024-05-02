@@ -1,5 +1,7 @@
-import { Body, Controller, Get, HttpCode, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Inject, Post, Res } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
+import { ReadStream } from 'node:fs';
 import { SUMMARIZE_SERVICE } from '~summarization/application/constants/summarize.constant';
 import { SummarizeResult } from '~summarization/application/interfaces/summarize-result.interface';
 import { Summarize } from '~summarization/application/interfaces/summarize.interface';
@@ -52,6 +54,12 @@ export class SummarizationController {
           code: 'zh-Hant',
         },
       },
+      langchain: {
+        value: {
+          url: 'https://js.langchain.com/docs/expression_language/streaming#chains',
+          code: 'en',
+        },
+      },
     },
   })
   @ApiResponse({
@@ -67,8 +75,14 @@ export class SummarizationController {
   })
   @HttpCode(200)
   @Post()
-  summarize(@Body() dto: SummarizeDto): Promise<SummarizeResult> {
-    return this.service.summarize(dto);
+  async summarize(@Body() dto: SummarizeDto, @Res() res: Response): Promise<void> {
+    const { stream } = await this.service.summarize(dto);
+    const rs = ReadStream.from(stream);
+
+    res.set({
+      'Content-Type': 'application/text',
+    });
+    rs.pipe(res);
   }
 
   @ApiBody({
