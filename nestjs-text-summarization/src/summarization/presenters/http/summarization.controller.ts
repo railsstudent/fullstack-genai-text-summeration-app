@@ -63,14 +63,14 @@ export class SummarizationController {
     },
   })
   @ApiResponse({
-    description: 'The text summary',
-    schema: {
-      type: 'object',
-      properties: {
-        url: { type: 'string', description: 'the URL of the web page' },
-        result: { type: 'string', description: 'the text summarization' },
-      },
-    },
+    // description: 'The text summary',
+    // schema: {
+    //   type: 'object',
+    //   properties: {
+    //     url: { type: 'string', description: 'the URL of the web page' },
+    //     result: { type: 'string', description: 'the text summarization' },
+    //   },
+    // },
     status: 200,
   })
   @HttpCode(200)

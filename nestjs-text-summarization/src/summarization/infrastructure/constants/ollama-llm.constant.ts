@@ -1,3 +1,3 @@
-export const GEMMA_2B = 'gemma:2b';
-export const LLAMA2_LATEST = 'llama2:latest';
-export const PHI_LATEST = 'phi:latest';
+export const GEMMA_VERSION = 'gemma:latest';
+export const LLAMA3_VERSION = 'llama3:latest';
+export const PHI3_VERSION = 'phi3:latest';

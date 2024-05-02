@@ -4,7 +4,11 @@ import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { Logger, Provider } from '@nestjs/common';
 import { env } from '~configs/env.config';
 import { LLM, MODEL_TYPE } from '~core/constants/translator.constant';
-import { GEMMA_2B, LLAMA2_LATEST, PHI_LATEST } from '~summarization/infrastructure/constants/ollama-llm.constant';
+import {
+  GEMMA_VERSION,
+  LLAMA3_VERSION,
+  PHI3_VERSION,
+} from '~summarization/infrastructure/constants/ollama-llm.constant';
 import { ModelTypes } from '~summarization/infrastructure/types/model.type';
 
 const chatModel = new ChatGoogleGenerativeAI({
@@ -41,14 +45,12 @@ export const LLM_PROVIDER: Provider = {
   inject: [MODEL_TYPE],
   useFactory: (modelType: ModelTypes) => {
     const modelMap = new Map<ModelTypes, string>();
-    modelMap.set('gemma', GEMMA_2B);
-    modelMap.set('llama2', LLAMA2_LATEST);
-    modelMap.set('phi', PHI_LATEST);
+    modelMap.set('gemma', GEMMA_VERSION);
+    modelMap.set('llama3', LLAMA3_VERSION);
+    modelMap.set('phi3', PHI3_VERSION);
 
     const model = modelMap.get(modelType) || '';
-    logger.log(
-      `model: ${model}, modelType, ${modelType}, model: ${model}, env.OLLAMA.APP_BASE_URL: ${env.OLLAMA.APP_BASE_URL}`,
-    );
+    logger.log(`model: ${model}, modelType: ${modelType}, env.OLLAMA.APP_BASE_URL: ${env.OLLAMA.APP_BASE_URL}`);
     if (!model) {
       return chatModel;
     }

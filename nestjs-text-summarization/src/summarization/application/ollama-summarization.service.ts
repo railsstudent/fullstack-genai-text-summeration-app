@@ -35,7 +35,7 @@ export class OllamaSummarizationService implements Summarize {
     --------
 
     Please write a summary that states the main topic and lists the key information in two paragraphs in {language}. 
-    Please strictly write in the format of paragraphs and no point form.
+    Please strictly write in the format of two paragraphs and no point form.
     When you do not support {language}, reply "I do not support {language}" and stop.
 
     Summary:

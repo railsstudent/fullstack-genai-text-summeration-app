@@ -55,17 +55,6 @@ export class GeminiSummarizationService implements Summarize {
     return {
       stream,
     };
-
-    // const buffer: string[] = [];
-    // for await (const chunk of chainValues) {
-    //   // console.log(`${chunk}|`);
-    //   buffer.push(chunk);
-    // }
-
-    // return Promise.resolve({
-    //   url: input.url,
-    //   result: buffer.join(''),
-    // });
   }
 
   async bulletPoints(input: SummarizeInput): Promise<SummarizeResult> {
