@@ -2,15 +2,12 @@ import { ChatOllama } from '@langchain/community/chat_models/ollama';
 import { StringOutputParser } from '@langchain/core/output_parsers';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { Inject, Injectable } from '@nestjs/common';
-import { loadSummarizationChain } from 'langchain/chains';
-import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
-import { CharacterTextSplitter } from 'langchain/text_splitter';
 import { env } from '~configs/env.config';
 import { LLM } from '~core/constants/translator.constant';
 import { LANGUAGE_NAMES } from '~core/enums/language_names.enum';
 import { getLanguages } from '~core/utilities/languages.util';
 import { SummarizeInput } from './interfaces/summarize-input.interface';
-import { SummarizationStream, SummarizeResult } from './interfaces/summarize-result.interface';
+import { SummarizationStream } from './interfaces/summarize-result.interface';
 import { Summarize } from './interfaces/summarize.interface';
 
 @Injectable()
@@ -56,66 +53,34 @@ export class OllamaSummarizationService implements Summarize {
     return {
       stream,
     };
-
-    // const textSplitter = new CharacterTextSplitter({ chunkSize: 3000, chunkOverlap: 500 });
-    // const loader = new CheerioWebBaseLoader(input.url);
-    // const docs = await loader.loadAndSplit(textSplitter);
-
-    // const chain = loadSummarizationChain(this.ollamaLlm, {
-    //   type: 'stuff',
-    //   prompt,
-    //   verbose: true,
-    // });
-
-    // const chainValues = await chain.invoke({
-    //   input_documents: docs,
-    //   language,
-    // });
-
-    // console.log(chainValues);
-
-    // return Promise.resolve({
-    //   url: input.url,
-    //   result: chainValues.text || '',
-    // });
   }
 
-  async bulletPoints(input: SummarizeInput): Promise<SummarizeResult> {
+  async bulletPoints(input: SummarizeInput): Promise<SummarizationStream> {
     const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;
     const template = `You are a helpful assistant who summarizes web page.
     Below you find the docuemnts of the web page:
     --------
-    {text}
+    {url}
     --------
 
-    Please write a bullet point list that lists the main topic and the key information in ${language}. 
+    Please write a bullet point list that lists the main topic and the key information in {language}. 
     Bullet Point List:
     `;
-    const prompt = new PromptTemplate({
+    const prompt = new PromptTemplate<{ url: string; language: string }>({
       template,
-      inputVariables: ['text'],
+      inputVariables: ['url', 'language'],
     });
 
-    const textSplitter = new CharacterTextSplitter({ chunkSize: 3000, chunkOverlap: 500 });
-    const loader = new CheerioWebBaseLoader(input.url);
-    const docs = await loader.loadAndSplit(textSplitter);
+    const parser = new StringOutputParser();
+    const chain = prompt.pipe(this.model).pipe(parser);
 
-    const chain = loadSummarizationChain(this.model, {
-      type: 'stuff',
-      prompt,
-      verbose: true,
-    });
-
-    const chainValues = await chain.invoke({
-      input_documents: docs,
+    const stream = await chain.stream({
+      url: input.url,
       language,
     });
 
-    console.log(chainValues);
-
-    return Promise.resolve({
-      url: input.url,
-      result: chainValues.text || '',
-    });
+    return {
+      stream,
+    };
   }
 }

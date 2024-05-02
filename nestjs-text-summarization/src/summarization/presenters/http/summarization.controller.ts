@@ -3,7 +3,6 @@ import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { ReadStream } from 'node:fs';
 import { SUMMARIZE_SERVICE } from '~summarization/application/constants/summarize.constant';
-import { SummarizeResult } from '~summarization/application/interfaces/summarize-result.interface';
 import { Summarize } from '~summarization/application/interfaces/summarize.interface';
 import { SummarizeDto } from '../dtos/summarize.dto';
 
@@ -63,14 +62,7 @@ export class SummarizationController {
     },
   })
   @ApiResponse({
-    // description: 'The text summary',
-    // schema: {
-    //   type: 'object',
-    //   properties: {
-    //     url: { type: 'string', description: 'the URL of the web page' },
-    //     result: { type: 'string', description: 'the text summarization' },
-    //   },
-    // },
+    description: 'The text summary',
     status: 200,
   })
   @HttpCode(200)
@@ -131,19 +123,18 @@ export class SummarizationController {
   })
   @ApiResponse({
     description: 'The text summary',
-    schema: {
-      type: 'object',
-      properties: {
-        url: { type: 'string', description: 'the URL of the web page' },
-        result: { type: 'string', description: 'the text summarization' },
-      },
-    },
     status: 200,
   })
   @HttpCode(200)
   @Post('bullet-points')
-  createBulletPoints(@Body() dto: SummarizeDto): Promise<SummarizeResult> {
-    return this.service.bulletPoints(dto);
+  async createBulletPoints(@Body() dto: SummarizeDto, @Res() res: Response): Promise<void> {
+    const { stream } = await this.service.bulletPoints(dto);
+    const rs = ReadStream.from(stream);
+
+    res.set({
+      'Content-Type': 'application/text',
+    });
+    rs.pipe(res);
   }
 
   @ApiResponse({
