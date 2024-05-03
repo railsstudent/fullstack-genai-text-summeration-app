@@ -3,8 +3,6 @@ import { ModelTypes } from '~summarization/infrastructure/types/model.type';
 
 dotenv.config();
 
-const OLLAMA_BASE_URL = process.env.OLLAMA_BASE_URL || 'http://localhost:11434';
-
 export const env = {
   PORT: parseInt(process.env.PORT || '3000'),
   AI: {
@@ -17,9 +15,5 @@ export const env = {
   GROQ: {
     API_KEY: process.env.GROQ_API_KEY || '',
     MODEL_NAME: process.env.GROQ_MODEL || '',
-  },
-  OLLAMA: {
-    BASE_URL: OLLAMA_BASE_URL,
-    APP_BASE_URL: process.env.APP_OLLAMA_BASE_URL || OLLAMA_BASE_URL,
   },
 };
