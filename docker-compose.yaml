@@ -19,7 +19,7 @@ services:
     #   - ollama-webui
     networks:
       - ai
-    restart: unless_stopped
+    restart: unless-stopped
   web:
     build:
       context: ./ng-text-summarization-app
@@ -30,7 +30,7 @@ services:
       - "${WEB_PORT}:${WEB_PORT}"
     networks:
       - ai
-    restart: unless_stopped
+    restart: unless-stopped
   # ollama:
   #   image: ollama/ollama:latest
   #   ports:
