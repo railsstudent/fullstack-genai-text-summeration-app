@@ -62,7 +62,8 @@ export class GeminiSummarizationService implements Summarize {
     {url}
     --------
 
-    Please write a bullet point list that lists the main topic and the key information in {language}. 
+    Please write a bullet point list that lists the key information in {language}. 
+
     Bullet Point List:
     `;
     const prompt = new PromptTemplate<{ url: string; language: string }>({
