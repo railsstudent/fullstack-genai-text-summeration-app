@@ -19,7 +19,7 @@ export class GroqSummarizationService implements Summarize {
   getLLModel(): { vendor: string; model: string } {
     return {
       vendor: 'Groq',
-      model: env.AI.MODEL_TYPE,
+      model: env.GROQ.MODEL_NAME,
     };
   }
 

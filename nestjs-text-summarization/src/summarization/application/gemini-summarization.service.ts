@@ -19,7 +19,7 @@ export class GeminiSummarizationService implements Summarize {
   getLLModel(): { vendor: string; model: string } {
     return {
       vendor: 'Google',
-      model: env.AI.MODEL_TYPE,
+      model: env.GEMINI.MODEL_NAME,
     };
   }
 
