@@ -1,2 +1,2 @@
-export const ModelArray = ['gemini', 'gemma', 'llama3', 'phi3'] as const;
+const ModelArray = ['gemini', 'groq'] as const;
 export type ModelTypes = (typeof ModelArray)[number];

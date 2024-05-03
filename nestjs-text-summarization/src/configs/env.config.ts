@@ -14,6 +14,10 @@ export const env = {
     API_KEY: process.env.GOOGLE_GEMINI_API_KEY || '',
     MODEL_NAME: process.env.GOOGLE_GEMINI_MODEL || '',
   },
+  GROQ: {
+    API_KEY: process.env.GROQ_API_KEY || '',
+    MODEL_NAME: process.env.GROQ_MODEL || '',
+  },
   OLLAMA: {
     BASE_URL: OLLAMA_BASE_URL,
     APP_BASE_URL: process.env.APP_OLLAMA_BASE_URL || OLLAMA_BASE_URL,
