@@ -16,7 +16,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
         </div>
         <div>
           <span>Result: </span>
-          <p [innerHTML]="item.result"></p>
+          <p [innerHTML]="item.text"></p>
         </div>
         <hr />
       }

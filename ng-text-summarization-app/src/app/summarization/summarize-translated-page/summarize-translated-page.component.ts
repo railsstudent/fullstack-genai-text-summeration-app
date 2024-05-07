@@ -46,7 +46,6 @@ export class SummarizeTranslatedPageComponent {
       isLoading: this.isLoading(),
       pageUrl: this.box().pageUrl,
       language: this.language(),
-      // translationList: this.translationList(),
     }
   });
 

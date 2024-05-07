@@ -22,12 +22,12 @@ export class SummarizationService {
       filter((data) => !!data.url && !!data.code),
       map((data) => ({ url: data.url, code: data.code })),
       switchMap((data) =>
-        this.httpService.post<{ url: string; result: string }>(`${config.url}/summarization`, data)
+        this.httpService.post<{ url: string; text: string }>(`${config.url}/summarization`, data)
           .pipe(
             retry(3),
-            map(({ url='', result }) => ({
+            map(({ url='', text }) => ({
               url,
-              result
+              text
             })),
             catchError((err) => {
               console.error(err);

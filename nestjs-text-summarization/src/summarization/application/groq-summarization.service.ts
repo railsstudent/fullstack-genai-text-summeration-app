@@ -50,6 +50,7 @@ export class GroqSummarizationService implements Summarize {
     });
 
     return {
+      url: input.url,
       text,
     };
   }
@@ -80,6 +81,7 @@ export class GroqSummarizationService implements Summarize {
     });
 
     return {
+      url: input.url,
       text,
     };
   }
