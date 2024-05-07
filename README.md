@@ -24,19 +24,65 @@
 
 ## Description
 
-This repo uses Azure OpenAI, Langchain + Gemini 1.0 Pro, and Google Cloud Translation API to translate text from one language to another language
+This repo uses NestJS, Angular, LangChain, and AI models to build a fullstack application to summarize a web page in the target langauge.
+
+The NestJS application can register two LangChain integrations:
+- LangChain + Gemini API + Gemini-1.0-Pro model
+- LangChain + Groq API + Gemma-7b-it 
+
+## Registration
+
+### Enable Gemini API and Gemini 1.0 Pro model
+Change MODEL_TYPE to gemini
+
+``` TypeScript
+PORT=3000
+GOOGLE_GEMINI_API_KEY=<google gemini api key>
+GOOGLE_GEMINI_MODEL=gemini-1.0-pro
+WEB_PORT=4200
+MODEL_TYPE=gemini
+GROQ_API_KEY=<groq api key>
+GROQ_MODEL=gemma-7b-it
+```
+
+### Enable Groq API and Gemma model
+Change MODEL_TYPE to groq.
+Supported models of Groq can be found here: https://console.groq.com/docs/models
+
+``` TypeScript
+PORT=3000
+GOOGLE_GEMINI_API_KEY=<google gemini api key>
+GOOGLE_GEMINI_MODEL=gemini-1.0-pro
+WEB_PORT=4200
+MODEL_TYPE=groq
+GROQ_API_KEY=<groq api key>
+GROQ_MODEL=gemma-7b-it
+```
 
 Google Cloud credits are provided for this project. #GeminiSprint hashtag.
 
 ## Installation
 ```bash
 $ npm install
-$ cd ./nestjs-genai-translation
+$
+$ cd ./nestjs-text-summarization
 $ npm install
 $
-$ cd ../ng-genai-translation
+$ cd ../ng-text-summarization-app
 $ npm install
 ```
+
+## Environment variables
+
+| Name  | Description | 
+|---|---|
+| PORT   | Backend Port. Default to3000  |
+| GOOGLE_GEMINI_API_KEY  | Google Gemini API Key   |
+| GOOGLE_GEMINI_MODEL  | Google Gemini model.  Default gemini-1.0-pro  |
+| WEB_PORT | Angular Port number |
+| MODEL_TYPE | AI Model.  Gemini or Groq  |
+| GROQ_API_KEY | Groq API KEy |
+| GROQ_MODEL | Groq model. Default to Gemma |
 
 ## Running the app in Docker
 
@@ -48,8 +94,12 @@ $ cp .env.docker.example .env
 $ docker-compose up -d
 ```
 
+### Test APIs
+
 - Open the browser and navigate to http://localhost:3000/api
 - Test the API in Swagger
 
+### Launch Angular App
+
 - Open the browser and navigate to http://localhost:4200
-- Use the simple UI to translate text or paragraph
+- Use the simple UI to input a web page URL to generate text summarization
