@@ -1,10 +1,9 @@
-import { Body, Controller, Get, HttpCode, Inject, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Response } from 'express';
-import { ReadStream } from 'node:fs';
 import { SUMMARIZE_SERVICE } from '~summarization/application/constants/summarize.constant';
 import { Summarize } from '~summarization/application/interfaces/summarize.interface';
 import { SummarizeDto } from '../dtos/summarize.dto';
+import { SummarizationResult } from '~summarization/application/interfaces/summarize-result.interface';
 
 @ApiTags('Text Summarization')
 @Controller('summarization')
@@ -24,17 +23,11 @@ export class SummarizationController {
         code: {
           type: 'string',
           description: 'language code',
-          enum: ['en', 'es', 'zh-Hans', 'zh-Hant', 'vi', 'ja'],
+          enum: ['en', 'zh-Hans', 'zh-Hant'],
         },
       },
     },
     examples: {
-      klookTaipeiSpanish: {
-        value: {
-          url: 'https://www.klook.com/zh-TW/activity/17290-beitou-yangmingshan-tour-taipei/',
-          code: 'es',
-        },
-      },
       klookTaipeiSimplifiedChinese: {
         value: {
           url: 'https://www.klook.com/zh-TW/activity/17290-beitou-yangmingshan-tour-taipei/',
@@ -63,18 +56,11 @@ export class SummarizationController {
   })
   @ApiResponse({
     description: 'The text summary',
-    status: 200,
+    status: 201,
   })
-  @HttpCode(200)
   @Post()
-  async summarize(@Body() dto: SummarizeDto, @Res() res: Response): Promise<void> {
-    const { stream } = await this.service.summarize(dto);
-    const rs = ReadStream.from(stream);
-
-    res.set({
-      'Content-Type': 'application/text',
-    });
-    rs.pipe(res);
+  summarize(@Body() dto: SummarizeDto): Promise<SummarizationResult> {
+    return this.service.summarize(dto);
   }
 
   @ApiBody({
@@ -90,17 +76,11 @@ export class SummarizationController {
         code: {
           type: 'string',
           description: 'language code',
-          enum: ['en', 'es', 'zh-Hans', 'zh-Hant', 'vi', 'ja'],
+          enum: ['en', 'zh-Hans', 'zh-Hant'],
         },
       },
     },
     examples: {
-      klookTaipeiSpanish: {
-        value: {
-          url: 'https://www.klook.com/zh-TW/activity/17290-beitou-yangmingshan-tour-taipei/',
-          code: 'es',
-        },
-      },
       klookTaipeiSimplifiedChinese: {
         value: {
           url: 'https://www.klook.com/zh-TW/activity/17290-beitou-yangmingshan-tour-taipei/',
@@ -119,22 +99,21 @@ export class SummarizationController {
           code: 'zh-Hant',
         },
       },
+      langchain: {
+        value: {
+          url: 'https://js.langchain.com/docs/expression_language/streaming#chains',
+          code: 'en',
+        },
+      },
     },
   })
   @ApiResponse({
     description: 'The text summary',
-    status: 200,
+    status: 201,
   })
-  @HttpCode(200)
   @Post('bullet-points')
-  async createBulletPoints(@Body() dto: SummarizeDto, @Res() res: Response): Promise<void> {
-    const { stream } = await this.service.bulletPoints(dto);
-    const rs = ReadStream.from(stream);
-
-    res.set({
-      'Content-Type': 'application/text',
-    });
-    rs.pipe(res);
+  createBulletPoints(@Body() dto: SummarizeDto): Promise<SummarizationResult> {
+    return this.service.bulletPoints(dto);
   }
 
   @ApiResponse({

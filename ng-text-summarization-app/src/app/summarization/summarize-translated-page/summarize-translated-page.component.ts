@@ -23,15 +23,15 @@ import { SummarizeResultsComponent } from '../summarize-results/summarize-result
     </div>
   `,
   styles: `
-  div.container {
-    padding: 1rem;
-  }
+    div.container {
+      padding: 1rem;
+    }
 
-  div.summarization {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-  }
-`,
+    div.summarization {
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SummarizeTranslatedPageComponent {

@@ -7,7 +7,7 @@ import { LLM } from '~core/constants/translator.constant';
 import { LANGUAGE_NAMES } from '~core/enums/language_names.enum';
 import { getLanguages } from '~core/utilities/languages.util';
 import { SummarizeInput } from './interfaces/summarize-input.interface';
-import { SummarizationStream } from './interfaces/summarize-result.interface';
+import { SummarizationResult } from './interfaces/summarize-result.interface';
 import { Summarize } from './interfaces/summarize.interface';
 
 @Injectable()
@@ -23,8 +23,7 @@ export class GroqSummarizationService implements Summarize {
     };
   }
 
-  async summarize(input: SummarizeInput): Promise<SummarizationStream> {
-    console.log(input);
+  async summarize(input: SummarizeInput): Promise<SummarizationResult> {
     const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;
     const template = `You are a helpful assistant who summarizes web page.
     Below you find the URL of the web page:
@@ -45,17 +44,17 @@ export class GroqSummarizationService implements Summarize {
     const parser = new StringOutputParser();
     const chain = prompt.pipe(this.model).pipe(parser);
 
-    const stream = await chain.stream({
+    const text = await chain.invoke({
       url: input.url,
       language,
     });
 
     return {
-      stream,
+      text,
     };
   }
 
-  async bulletPoints(input: SummarizeInput): Promise<SummarizationStream> {
+  async bulletPoints(input: SummarizeInput): Promise<SummarizationResult> {
     const language = this.languageMapper.get(input.code) || LANGUAGE_NAMES.ENGLISH;
     const template = `You are a helpful assistant who summarizes web page.
     Below you find the docuemnts of the web page:
@@ -75,13 +74,13 @@ export class GroqSummarizationService implements Summarize {
     const parser = new StringOutputParser();
     const chain = prompt.pipe(this.model).pipe(parser);
 
-    const stream = await chain.stream({
+    const text = await chain.invoke({
       url: input.url,
       language,
     });
 
     return {
-      stream,
+      text,
     };
   }
 }
