@@ -50,7 +50,7 @@ export class SummarizeAsListComponent {
   });
 
   summary = toSignal(
-    this.summarizationService.result$
+    this.summarizationService.bulletPointList$
       .pipe(
         scan((acc, translation) => ([...acc, translation]), [] as SummarizationResult[]),
         tap(() => this.isLoading.set(false)),
