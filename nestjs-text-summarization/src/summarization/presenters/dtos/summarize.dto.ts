@@ -8,6 +8,6 @@ export class SummarizeDto {
 
   @IsString()
   @IsNotEmpty()
-  @IsIn(['en', 'es', 'ja', 'vi', 'zh-Hant', 'zh-Hans'])
+  @IsIn(['en', 'zh-Hant', 'zh-Hans'])
   code: Languages;
 }

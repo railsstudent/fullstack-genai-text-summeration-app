@@ -60,6 +60,7 @@ export class SummarizationController {
   })
   @Post()
   summarize(@Body() dto: SummarizeDto): Promise<SummarizationResult> {
+    console.log('summarize called');
     return this.service.summarize(dto);
   }
 

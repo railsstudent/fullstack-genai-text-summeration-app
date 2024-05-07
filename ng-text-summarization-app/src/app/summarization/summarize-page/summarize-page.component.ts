@@ -69,7 +69,7 @@ export class SummarizePageComponent {
           this.isLoading.set(true);
           this.summarizationService.summarizePage({
             url,
-            language: 'en',
+            code: 'en',
           });
         });
 

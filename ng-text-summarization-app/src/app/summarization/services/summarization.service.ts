@@ -14,15 +14,15 @@ export class SummarizationService {
 
   private summarization = signal<Summarization>({
     url: '',
-    language: 'en',
+    code: 'en',
   });
 
   result$  = toObservable(this.summarization)
     .pipe(
-      filter((data) => !!data.url && !!data.language),
-      map((data) => ({ url: data.url, language: data.language })),
+      filter((data) => !!data.url && !!data.code),
+      map((data) => ({ url: data.url, code: data.code })),
       switchMap((data) =>
-        this.httpService.post<{ url: string; result: string }>(`${config.url}/summarize`, data)
+        this.httpService.post<{ url: string; result: string }>(`${config.url}/summarization`, data)
           .pipe(
             retry(3),
             map(({ url='', result }) => ({

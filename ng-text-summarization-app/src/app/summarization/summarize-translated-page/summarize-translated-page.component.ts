@@ -74,7 +74,7 @@ export class SummarizeTranslatedPageComponent {
           this.isLoading.set(true);
           this.summarizationService.summarizePage({
             url,
-            language: this.vm.language,
+            code: this.vm.language,
           });
         });
 

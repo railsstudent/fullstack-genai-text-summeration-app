@@ -2,7 +2,7 @@ import { OutputEmitterRef } from "@angular/core";
 
 export interface Summarization {
     url: string;
-    language: string;
+    code: string;
 }
 
 export interface WebpageInputBoxModel {
