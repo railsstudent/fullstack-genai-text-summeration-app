@@ -1,10 +1,11 @@
 import { SummarizationResult } from '../interfaces/summarization-result.interface';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { LineBreakPipe } from '../pipes/line-break.pipe';
 
 @Component({
   selector: 'app-summarize-results',
   standalone: true,
-  imports: [],
+  imports: [LineBreakPipe],
   template: `
     <h3>Text Summarization: </h3>
     @if (results().length > 0) {
@@ -16,7 +17,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
         </div>
         <div>
           <span>Result: </span>
-          <p [innerHTML]="item.text"></p>
+          <p [innerHTML]="item.text |  lineBreak"></p>
         </div>
         <hr />
       }
