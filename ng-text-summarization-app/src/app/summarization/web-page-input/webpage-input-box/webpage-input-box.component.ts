@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { WebpageInputBoxModel } from '../interfaces/summarization.interface';
+import { WebpageInputBoxModel } from '../../interfaces/summarization.interface';
 
 @Component({
   selector: 'app-webpage-input-box',

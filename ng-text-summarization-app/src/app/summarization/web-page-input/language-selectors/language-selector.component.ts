@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
     <div class="language-selectors">
       <label for="from">
         <span>Language: </span>
-        <select [(ngModel)]="language" name="from">
+        <select [(ngModel)]="code" name="from">
           @for (language of languages(); track language.code) {
             <option value="{{ language.code }}">{{ language.name }}</option>
           }
@@ -27,5 +27,5 @@ import { FormsModule } from '@angular/forms';
 })
 export class LanguageSelectorComponent {
   languages = input.required<{ code: string; name: string }[]>();
-  language = model('en');
+  code = model('en');
 }
