@@ -9,10 +9,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     <h3>Main Menu</h3>
     <ul>
       <li>
-        <a routerLink="/summarization-translated-page"  routerLinkActive="active-link">Text summarization with translation</a>
+        <a routerLink="/summarization-page"  routerLinkActive="active-link">Text Summarization</a>
       </li>
       <li>
-        <a routerLink="/summarization-as-list"  routerLinkActive="active-link">Text summarization list</a>
+        <a routerLink="/summarization-as-list"  routerLinkActive="active-link">Bullet Points Summarization</a>
       </li>
     </ul>
   `,
