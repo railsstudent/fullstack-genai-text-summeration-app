@@ -44,7 +44,7 @@ export class SummarizeTranslatedPageComponent {
         .pipe(filter((parameter) => !!parameter.url && !!parameter.code))
         .subscribe(({ url, code }) => {
           this.isLoading.set(true);
-          this.summarizationService.summarizePage({
+          this.summarizationService.summarizeText({
             url,
             code,
           });

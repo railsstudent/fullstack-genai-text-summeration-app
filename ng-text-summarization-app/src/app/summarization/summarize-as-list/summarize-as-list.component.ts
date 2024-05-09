@@ -3,16 +3,18 @@ import { outputToObservable, toSignal } from '@angular/core/rxjs-interop';
 import { filter, scan, tap } from 'rxjs';
 import { SummarizationResult } from '../interfaces/summarization-result.interface';
 import { SummarizationService } from '../services/summarization.service';
+import { SummarizeResultsComponent } from '../summarize-results/summarize-results.component';
 import { WebPageInputContainerComponent } from '../web-page-input/web-page-input-container/web-page-input-container.component';
 
 @Component({
   selector: 'app-summarize-as-list',
   standalone: true,
-  imports: [WebPageInputContainerComponent],
+  imports: [SummarizeResultsComponent, WebPageInputContainerComponent],
   template: `
     <div class="container">
       <app-web-page-input-container title="Ng Summary List Demo" [isLoading]="isLoading()"
       />
+      <app-summarize-results [results]="summary()" />
     </div>
   `,
   styles: `
@@ -39,13 +41,10 @@ export class SummarizeAsListComponent {
   constructor() {
     effect((cleanUp) => {
       const sub = outputToObservable(this.inputContainer().submittedPage)
-        .pipe(
-          tap((parameter) => console.log(parameter)),
-          filter((parameter) => !!parameter.url && !!parameter.code)
-        )
+        .pipe(filter((parameter) => !!parameter.url && !!parameter.code))
         .subscribe(({ url, code }) => {
           this.isLoading.set(true);
-          this.summarizationService.summarizePage({
+          this.summarizationService.summarizeToBulletPoints({
             url,
             code,
           });

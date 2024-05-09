@@ -13,12 +13,17 @@ import { Summarization } from '../interfaces/summarization.interface';
 export class SummarizationService {
   private readonly httpService = inject(HttpClient);
 
-  private summarization = signal<Summarization>({
+  private textSummarization = signal<Summarization>({
     url: '',
     code: 'en',
   });
 
-  result$  = toObservable(this.summarization)
+  private bulletPointsSummization = signal<Summarization>({
+    url: '',
+    code: 'en',
+  });
+
+  result$  = toObservable(this.textSummarization)
     .pipe(
       filter((data) => !!data.url && !!data.code),
       switchMap((data) =>
@@ -41,7 +46,7 @@ export class SummarizationService {
       map((result) => result as SummarizationResult),
     );
 
-  bulletPointList$  = toObservable(this.summarization)
+  bulletPointList$  = toObservable(this.bulletPointsSummization)
     .pipe(
       filter((data) => !!data.url && !!data.code),
       map((data) => ({ url: data.url, code: data.code })),
@@ -69,8 +74,12 @@ export class SummarizationService {
     return config.languages;
   }
 
-  summarizePage(data: Summarization) {
-    this.summarization.set(data);
+  summarizeText(data: Summarization) {
+    this.textSummarization.set(data);
+  }
+
+  summarizeToBulletPoints(data: Summarization) {
+    this.bulletPointsSummization.set(data);
   }
 
   getLargeLanguageModelUsed(): Observable<LargeLanguageModelUsed> {
