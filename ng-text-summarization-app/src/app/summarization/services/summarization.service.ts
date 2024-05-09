@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { catchError, filter, map, of, retry, switchMap } from 'rxjs';
+import { catchError, filter, map, Observable, of, retry, switchMap } from 'rxjs';
 import config from '~assets/config.json';
+import { LargeLanguageModelUsed } from '../interfaces/llm-used.interface';
 import { SummarizationResult } from '../interfaces/summarization-result.interface';
 import { Summarization } from '../interfaces/summarization.interface';
 
@@ -71,5 +72,9 @@ export class SummarizationService {
 
   summarizePage(data: Summarization) {
     this.summarization.set(data);
+  }
+
+  getLargeLanguageModelUsed(): Observable<LargeLanguageModelUsed> {
+    return this.httpService.get<LargeLanguageModelUsed>(`${config.url}/summarization/llm`);
   }
 }
