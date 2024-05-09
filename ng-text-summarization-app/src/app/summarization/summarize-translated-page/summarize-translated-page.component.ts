@@ -52,6 +52,7 @@ export class SummarizeTranslatedPageComponent {
   summary = toSignal(
     this.summarizationService.result$
       .pipe(
+        tap((result) => console.log(result)),
         scan((acc, translation) => ([...acc, translation]), [] as SummarizationResult[]),
         tap(() => this.isLoading.set(false)),
       ),

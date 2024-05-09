@@ -41,8 +41,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       border: 1px solid black;
       border-radius: 4px;
       padding: 1rem;
-      width: 50%;
-      height: 300px;
+      width: 70%;
+      height: 500px;
       overflow-y: scroll;
     }
 
