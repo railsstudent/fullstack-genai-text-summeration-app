@@ -108,7 +108,7 @@ export class SummarizationController {
     },
   })
   @ApiResponse({
-    description: 'The text summary',
+    description: 'The bullet point list',
     status: 201,
   })
   @Post('bullet-points')
