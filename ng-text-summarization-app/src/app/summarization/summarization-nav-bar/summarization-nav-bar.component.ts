@@ -8,9 +8,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   template: `
     <h3>Main Menu</h3>
     <ul>
-      <!-- <li>
-        <a routerLink="/summarization-page" routerLinkActive="active-link">Text summarization</a>
-      </li> -->
       <li>
         <a routerLink="/summarization-translated-page"  routerLinkActive="active-link">Text summarization with translation</a>
       </li>

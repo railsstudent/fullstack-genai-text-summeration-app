@@ -2,12 +2,6 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'summarization-page',
-    loadComponent: () => import('./summarization/summarize-page/summarize-page.component')
-      .then((m) => m.SummarizePageComponent),
-    title: 'Text Summarization',
-  },
-  {
     path: 'summarization-translated-page',
     loadComponent: () => import('./summarization/summarize-translated-page/summarize-translated-page.component')
       .then((m) => m.SummarizeTranslatedPageComponent),
