@@ -1,4 +1,5 @@
 export interface LargeLanguageModelUsed {
-    vendor: string;
+    company: string;
+    developer: string;
     model: string;
 }

@@ -1,21 +1,19 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SummarizationService } from '../services/summarization.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { LargeLanguageModelUsed } from '../interfaces/llm-used.interface';
 
 @Component({
   selector: 'app-large-language-model-used',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe],
   template: `
     <div>
       <h3>Large Language Model used</h3>
-      <p>
-        Vendor:  {{ modelUsed().vendor }}
-      </p>
-      <p>
-        Model: {{ modelUsed().model }}
-      </p>
+      @if (modelUsed$ | async; as modelUsed) {
+        <p>Company:  {{ modelUsed.company }}</p>
+        <p>Developer:  {{ modelUsed.developer }}</p>
+        <p>Model: {{ modelUsed.model }}</p>
+      }
     </div>
   `,
   styles: `
@@ -32,10 +30,5 @@ import { LargeLanguageModelUsed } from '../interfaces/llm-used.interface';
 export class LargeLanguageModelUsedComponent {
   summarizationService = inject(SummarizationService);
 
-  modelUsed = toSignal(this.summarizationService.getLargeLanguageModelUsed(), {
-    initialValue: {
-      vendor: '',
-      model: ''
-    } as LargeLanguageModelUsed
-  });
+  modelUsed$ = this.summarizationService.getLargeLanguageModelUsed();
 }

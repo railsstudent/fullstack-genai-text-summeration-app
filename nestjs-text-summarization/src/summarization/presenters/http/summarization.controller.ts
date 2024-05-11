@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SUMMARIZE_SERVICE } from '~summarization/application/constants/summarize.constant';
+import { ModelProvider } from '~summarization/application/interfaces/model-provider.interface';
+import { SummarizationResult } from '~summarization/application/interfaces/summarize-result.interface';
 import { Summarize } from '~summarization/application/interfaces/summarize.interface';
 import { SummarizeDto } from '../dtos/summarize.dto';
-import { SummarizationResult } from '~summarization/application/interfaces/summarize-result.interface';
 
 @ApiTags('Text Summarization')
 @Controller('summarization')
@@ -128,7 +129,7 @@ export class SummarizationController {
     status: 200,
   })
   @Get('llm')
-  getLLModel(): { vendor: string; model: string } {
+  getLLModel(): ModelProvider {
     return this.service.getLLModel();
   }
 }
