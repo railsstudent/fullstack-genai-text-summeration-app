@@ -6,6 +6,7 @@ import { env } from '~configs/env.config';
 import { LLM } from '~core/constants/translator.constant';
 import { LANGUAGE_NAMES } from '~core/enums/language_names.enum';
 import { getLanguages } from '~core/utilities/languages.util';
+import { ModelProvider } from './interfaces/model-provider.interface';
 import { SummarizeInput } from './interfaces/summarize-input.interface';
 import { SummarizationResult } from './interfaces/summarize-result.interface';
 import { Summarize } from './interfaces/summarize.interface';
@@ -16,9 +17,10 @@ export class GroqSummarizationService implements Summarize {
 
   constructor(@Inject(LLM) private model: ChatGroq) {}
 
-  getLLModel(): { vendor: string; model: string } {
+  getLLModel(): ModelProvider {
     return {
-      vendor: 'Groq',
+      company: 'Groq',
+      developer: 'Meta',
       model: env.GROQ.MODEL_NAME,
     };
   }
