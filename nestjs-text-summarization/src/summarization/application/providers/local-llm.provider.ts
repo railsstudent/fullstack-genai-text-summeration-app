@@ -7,7 +7,7 @@ import { LLM, MODEL_TYPE } from '~core/constants/translator.constant';
 import { ModelTypes } from '~summarization/infrastructure/types/model.type';
 
 const googleChatModel = new ChatGoogleGenerativeAI({
-  modelName: env.GEMINI.MODEL_NAME,
+  model: env.GEMINI.MODEL_NAME,
   maxOutputTokens: 2048,
   safetySettings: [
     {
@@ -45,9 +45,11 @@ export const LLM_PROVIDER: Provider = {
   inject: [MODEL_TYPE],
   useFactory: (modelType: ModelTypes) => {
     if (modelType === 'gemini') {
+      console.log('return google chat model');
       return googleChatModel;
     }
 
+    console.log('return groq chat model');
     return groqChatModel;
   },
 };
