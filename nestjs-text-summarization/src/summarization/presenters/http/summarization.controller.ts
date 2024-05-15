@@ -21,36 +21,28 @@ export class SummarizationController {
           type: 'string',
           description: 'URL of the web page',
         },
-        code: {
+        topic: {
           type: 'string',
-          description: 'language code',
-          enum: ['en', 'zh-Hans', 'zh-Hant'],
+          description: 'topic of the summary',
         },
       },
     },
     examples: {
-      klookTaipeiSimplifiedChinese: {
-        value: {
-          url: 'https://www.klook.com/zh-TW/activity/17290-beitou-yangmingshan-tour-taipei/',
-          code: 'zh-Hans',
-        },
-      },
-      klookTaiChungEnglish: {
-        value: {
-          url: 'https://www.klook.com/zh-TW/activity/3010-cherry-blossom-wuling-farm-yilan/',
-          code: 'en',
-        },
-      },
       angularSignals: {
         value: {
           url: 'https://angular.dev/guide/signals',
-          code: 'zh-Hant',
         },
       },
       langchain: {
         value: {
           url: 'https://js.langchain.com/docs/expression_language/streaming#chains',
-          code: 'en',
+          topic: 'langchain, streaming',
+        },
+      },
+      vectorDatabase: {
+        value: {
+          url: 'https://aws.amazon.com/what-is/vector-databases/',
+          topic: 'vector database',
         },
       },
     },
@@ -74,36 +66,28 @@ export class SummarizationController {
           type: 'string',
           description: 'URL of the web page',
         },
-        code: {
+        topic: {
           type: 'string',
-          description: 'language code',
-          enum: ['en', 'zh-Hans', 'zh-Hant'],
+          description: 'topic of the summary',
         },
       },
     },
     examples: {
-      klookTaipeiSimplifiedChinese: {
-        value: {
-          url: 'https://www.klook.com/zh-TW/activity/17290-beitou-yangmingshan-tour-taipei/',
-          code: 'zh-Hans',
-        },
-      },
-      klookTaiChungEnglish: {
-        value: {
-          url: 'https://www.klook.com/zh-TW/activity/3010-cherry-blossom-wuling-farm-yilan/',
-          code: 'en',
-        },
-      },
       angularSignals: {
         value: {
           url: 'https://angular.dev/guide/signals',
-          code: 'zh-Hant',
         },
       },
       langchain: {
         value: {
           url: 'https://js.langchain.com/docs/expression_language/streaming#chains',
-          code: 'en',
+          topic: 'langchain, streaming',
+        },
+      },
+      vectorDatabase: {
+        value: {
+          url: 'https://aws.amazon.com/what-is/vector-databases/',
+          topic: 'vector database',
         },
       },
     },
@@ -122,7 +106,8 @@ export class SummarizationController {
     schema: {
       type: 'object',
       properties: {
-        vendor: { type: 'string', description: 'Vendor of the large language model' },
+        company: { type: 'string', description: 'Company of the large language model' },
+        developer: { type: 'string', description: 'Developer of the large language model' },
         model: { type: 'string', description: 'Name of the large language model' },
       },
     },

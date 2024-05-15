@@ -1,13 +1,11 @@
-import { IsIn, IsNotEmpty, IsString, IsUrl } from 'class-validator';
-import { Languages } from '~core/types/languages.type';
+import { IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 
 export class SummarizeDto {
   @IsUrl()
   @IsNotEmpty()
   url: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  @IsIn(['en', 'zh-Hant', 'zh-Hans'])
-  code: Languages;
+  topic?: string;
 }

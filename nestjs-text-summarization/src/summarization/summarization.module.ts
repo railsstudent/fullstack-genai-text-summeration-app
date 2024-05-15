@@ -6,10 +6,11 @@ import { LLM_PROVIDER } from './application/providers/local-llm.provider';
 import { ModelTypes } from './infrastructure/types/model.type';
 import { SummarizationController } from './presenters/http/summarization.controller';
 import { GroqSummarizationService } from './application/groq-summarization.service';
+import { PromptService } from './application/prompt.service';
 
 @Module({
   controllers: [SummarizationController],
-  providers: [GroqSummarizationService],
+  providers: [PromptService],
 })
 export class SummarizationModule {
   static register(model: ModelTypes = 'gemini'): DynamicModule {
