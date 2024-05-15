@@ -45,11 +45,9 @@ export const LLM_PROVIDER: Provider = {
   inject: [MODEL_TYPE],
   useFactory: (modelType: ModelTypes) => {
     if (modelType === 'gemini') {
-      console.log('return google chat model');
       return googleChatModel;
     }
 
-    console.log('return groq chat model');
     return groqChatModel;
   },
 };
