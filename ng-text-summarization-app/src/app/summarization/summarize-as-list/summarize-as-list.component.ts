@@ -12,7 +12,7 @@ import { WebPageInputContainerComponent } from '../web-page-input/web-page-input
   imports: [SummarizeResultsComponent, WebPageInputContainerComponent],
   template: `
     <div class="container">
-      <app-web-page-input-container title="Ng Summary List Demo" [isLoading]="isLoading()"
+      <app-web-page-input-container title="Ng Bullet Point List Demo" [isLoading]="isLoading()"
       />
       <app-summarize-results [results]="summary()" />
     </div>
@@ -42,11 +42,10 @@ export class SummarizeAsListComponent {
     effect((cleanUp) => {
       const sub = outputToObservable(this.inputContainer().submittedPage)
         .pipe(filter((parameter) => !!parameter.url && !!parameter.code))
-        .subscribe(({ url, code }) => {
+        .subscribe(({ url }) => {
           this.isLoading.set(true);
           this.summarizationService.summarizeToBulletPoints({
             url,
-            code,
           });
         });
 

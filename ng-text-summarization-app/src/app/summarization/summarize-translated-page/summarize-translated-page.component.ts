@@ -12,7 +12,7 @@ import { WebPageInputContainerComponent } from '../web-page-input/web-page-input
   imports: [SummarizeResultsComponent, WebPageInputContainerComponent],
   template: `
     <div class="container">
-      <app-web-page-input-container title="Ng Translated Text Summarization Demo" [isLoading]="isLoading()"
+      <app-web-page-input-container title="Ng Text Summarization Demo" [isLoading]="isLoading()"
       />
       <app-summarize-results [results]="summary()" />
     </div>
@@ -42,11 +42,10 @@ export class SummarizeTranslatedPageComponent {
     effect((cleanUp) => {
       const sub = outputToObservable(this.inputContainer().submittedPage)
         .pipe(filter((parameter) => !!parameter.url && !!parameter.code))
-        .subscribe(({ url, code }) => {
+        .subscribe(({ url }) => {
           this.isLoading.set(true);
           this.summarizationService.summarizeText({
             url,
-            code,
           });
         });
 

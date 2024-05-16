@@ -1,18 +1,17 @@
 import { ChangeDetectionStrategy, Component, effect, HostAttributeToken, inject, input, output, signal, viewChild } from '@angular/core';
-import { SummarizationService } from '~app/summarization/services/summarization.service';
-import { LanguageSelectorComponent } from '../language-selectors/language-selector.component';
-import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box.component';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
+import { SummarizationService } from '~app/summarization/services/summarization.service';
+import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box.component';
 
 @Component({
   selector: 'app-web-page-input-container',
   standalone: true,
-  imports: [WebpageInputBoxComponent, LanguageSelectorComponent,],
+  imports: [WebpageInputBoxComponent],
   template: `
     <h2>{{ title }}</h2>
     <div class="summarization">
-      <app-language-selector  [languages]="languages" [(code)]="code" />
+      <!-- <app-language-selector  [languages]="languages" [(code)]="code" /> -->
       <app-webpage-input-box [isLoading]="isLoading()" />
     </div>
   `,
@@ -31,7 +30,7 @@ export class WebPageInputContainerComponent {
   
   title = inject(new HostAttributeToken('title'), { optional: true }) || 'Ng Text Summarization Demo';
   summarizationService = inject(SummarizationService);
-  languages = this.summarizationService.getSupportedLanguages();
+  // languages = this.summarizationService.getSupportedLanguages();
 
   submittedPage = output<{ url: string; code: string }>();
 

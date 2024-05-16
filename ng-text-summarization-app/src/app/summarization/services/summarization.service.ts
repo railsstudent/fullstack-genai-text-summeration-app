@@ -15,17 +15,15 @@ export class SummarizationService {
 
   private textSummarization = signal<Summarization>({
     url: '',
-    code: 'en',
   });
 
   private bulletPointsSummization = signal<Summarization>({
     url: '',
-    code: 'en',
   });
 
   result$  = toObservable(this.textSummarization)
     .pipe(
-      filter((data) => !!data.url && !!data.code),
+      filter((data) => !!data.url),
       switchMap((data) =>
         this.httpService.post<{ url: string; text: string }>(`${config.url}/summarization`, data)
           .pipe(
@@ -48,8 +46,8 @@ export class SummarizationService {
 
   bulletPointList$  = toObservable(this.bulletPointsSummization)
     .pipe(
-      filter((data) => !!data.url && !!data.code),
-      map((data) => ({ url: data.url, code: data.code })),
+      filter((data) => !!data.url),
+      map((data) => ({ url: data.url })),
       switchMap((data) =>
         this.httpService.post<{ url: string; text: string }>(`${config.url}/summarization/bullet-points`, data)
           .pipe(

@@ -11,6 +11,6 @@ import { Title } from '@angular/platform-browser';
 })
 export class AppComponent {
   constructor(title: Title) {
-    title.setTitle('Generative Ai - Text Summarization Demo');
+    title.setTitle('Generative AI - Text Summarization Demo');
   }
 }
