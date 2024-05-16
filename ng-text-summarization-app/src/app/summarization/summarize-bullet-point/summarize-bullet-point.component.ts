@@ -24,7 +24,7 @@ import { WebPageInputContainerComponent } from '../web-page-input/web-page-input
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SummarizeAsListComponent {
+export class SummarizeBulletPointComponent {
   isLoading = signal(false);
   inputContainer = viewChild.required(WebPageInputContainerComponent);
   summarizationService = inject(SummarizationService);

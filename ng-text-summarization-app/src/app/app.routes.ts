@@ -3,14 +3,14 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'summarization-page',
-    loadComponent: () => import('./summarization/summarize-translated-page/summarize-translated-page.component')
-      .then((m) => m.SummarizeTranslatedPageComponent),
+    loadComponent: () => import('./summarization/summarize-paragraph-page/summarize-paragraph-page.component')
+      .then((m) => m.SummarizeParagraphComponent),
     title: 'Text Summarization',
   },
   {
     path: 'summarization-as-list',
-    loadComponent: () => import('./summarization/summarize-as-list/summarize-as-list.component')
-      .then((m) => m.SummarizeAsListComponent),
+    loadComponent: () => import('./summarization/summarize-bullet-point/summarize-bullet-point.component')
+      .then((m) => m.SummarizeBulletPointComponent),
     title: 'Bullet Points Summarization',
   },
   {

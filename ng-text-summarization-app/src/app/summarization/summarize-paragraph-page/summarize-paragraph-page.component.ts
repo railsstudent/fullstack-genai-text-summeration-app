@@ -7,7 +7,7 @@ import { SummarizeResultsComponent } from '../summarize-results/summarize-result
 import { WebPageInputContainerComponent } from '../web-page-input/web-page-input-container/web-page-input-container.component';
 
 @Component({
-  selector: 'app-summarize-translated-page',
+  selector: 'app-summarize-paragraph-page',
   standalone: true,
   imports: [SummarizeResultsComponent, WebPageInputContainerComponent],
   template: `
@@ -24,7 +24,7 @@ import { WebPageInputContainerComponent } from '../web-page-input/web-page-input
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SummarizeTranslatedPageComponent {
+export class SummarizeParagraphComponent {
   isLoading = signal(false);
   inputContainer = viewChild.required(WebPageInputContainerComponent);
   summarizationService = inject(SummarizationService);
