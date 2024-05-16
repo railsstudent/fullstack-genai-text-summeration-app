@@ -15,10 +15,12 @@ export class SummarizationService {
 
   private textSummarization = signal<Summarization>({
     url: '',
+    topic: '',
   });
 
   private bulletPointsSummization = signal<Summarization>({
     url: '',
+    topic: '',
   });
 
   result$  = toObservable(this.textSummarization)

@@ -41,11 +41,12 @@ export class SummarizeTranslatedPageComponent {
   constructor() {
     effect((cleanUp) => {
       const sub = outputToObservable(this.inputContainer().submittedPage)
-        .pipe(filter((parameter) => !!parameter.url && !!parameter.code))
-        .subscribe(({ url }) => {
+        .pipe(filter((parameter) => !!parameter.url))
+        .subscribe(({ url, topic = '' }) => {
           this.isLoading.set(true);
           this.summarizationService.summarizeText({
             url,
+            topic,
           });
         });
 

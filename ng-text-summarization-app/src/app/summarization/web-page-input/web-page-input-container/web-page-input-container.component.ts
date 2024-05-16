@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, effect, HostAttributeToken, inject, input, output, signal, viewChild } from '@angular/core';
-import { outputToObservable } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { ChangeDetectionStrategy, Component, HostAttributeToken, inject, input, output, viewChild } from '@angular/core';
+import { SubmittedPage } from '~app/summarization/interfaces/summarization.interface';
 import { SummarizationService } from '~app/summarization/services/summarization.service';
 import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box.component';
 
@@ -11,36 +10,26 @@ import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box
   template: `
     <h2>{{ title }}</h2>
     <div class="summarization">
-      <!-- <app-language-selector  [languages]="languages" [(code)]="code" /> -->
-      <app-webpage-input-box [isLoading]="isLoading()" />
+      <app-webpage-input-box [isLoading]="isLoading()" (pageUrl)="submittedPage.emit($event)" />
     </div>
   `,
   styles: `
     div.summarization {
       margin-top: 1rem;
       margin-bottom: 2rem;
+
+      display: flex;
+      flex-direction: column;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WebPageInputContainerComponent {
-  code = signal('en');
   isLoading = input.required<boolean>();
   box = viewChild.required(WebpageInputBoxComponent);
   
   title = inject(new HostAttributeToken('title'), { optional: true }) || 'Ng Text Summarization Demo';
   summarizationService = inject(SummarizationService);
-  // languages = this.summarizationService.getSupportedLanguages();
 
-  submittedPage = output<{ url: string; code: string }>();
-
-  constructor() {
-    effect((cleanUp) => {
-      const sub = outputToObservable(this.box().pageUrl)
-        .pipe(map((url) => ({ url, code: this.code() })))
-        .subscribe((result) => this.submittedPage.emit(result));
-
-      cleanUp(() => sub.unsubscribe());
-    });
-  }
+  submittedPage = output<SubmittedPage>();
 }
