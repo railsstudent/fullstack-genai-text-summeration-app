@@ -8,9 +8,6 @@ import { PromptService } from './prompt.service';
 
 @Injectable()
 export class GroqSummarizationService implements Summarize {
-  // private readonly languageMapper = getLanguages();
-
-  // constructor(@Inject(LLM) private model: ChatGroq) {}
   constructor(private promptService: PromptService) {}
 
   getLLModel(): ModelProvider {
