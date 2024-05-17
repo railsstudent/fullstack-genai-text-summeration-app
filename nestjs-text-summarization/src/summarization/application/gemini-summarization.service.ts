@@ -4,11 +4,11 @@ import { ModelProvider } from './interfaces/model-provider.interface';
 import { SummarizeInput } from './interfaces/summarize-input.interface';
 import { SummarizationResult } from './interfaces/summarize-result.interface';
 import { Summarize } from './interfaces/summarize.interface';
-import { PromptService } from './prompt.service';
+import { SummarizationChainService } from './summarization-chain.service';
 
 @Injectable()
 export class GeminiSummarizationService implements Summarize {
-  constructor(private promptService: PromptService) {}
+  constructor(private promptService: SummarizationChainService) {}
 
   getLLModel(): ModelProvider {
     return {
