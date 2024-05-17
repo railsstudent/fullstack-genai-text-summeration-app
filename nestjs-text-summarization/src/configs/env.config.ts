@@ -10,7 +10,7 @@ export const env = {
   },
   GEMINI: {
     API_KEY: process.env.GOOGLE_GEMINI_API_KEY || '',
-    MODEL_NAME: process.env.GOOGLE_GEMINI_MODEL || '',
+    MODEL_NAME: process.env.GOOGLE_GEMINI_MODEL || 'gemini-pro',
   },
   GROQ: {
     API_KEY: process.env.GROQ_API_KEY || '',
