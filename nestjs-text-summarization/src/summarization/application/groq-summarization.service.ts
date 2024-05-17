@@ -8,7 +8,7 @@ import { SummarizationChainService } from './summarization-chain.service';
 
 @Injectable()
 export class GroqSummarizationService implements Summarize {
-  constructor(private promptService: SummarizationChainService) {}
+  constructor(private chainService: SummarizationChainService) {}
 
   getLLModel(): ModelProvider {
     return {
@@ -19,8 +19,8 @@ export class GroqSummarizationService implements Summarize {
   }
 
   async summarize(input: SummarizeInput): Promise<SummarizationResult> {
-    const stuffChain = await this.promptService.createParagraphsChain(input.topic);
-    const text = await this.promptService.generateAnswer(stuffChain, input);
+    const stuffChain = await this.chainService.createParagraphsChain(input.topic);
+    const text = await this.chainService.generateAnswer(stuffChain, input);
 
     return {
       url: input.url,
@@ -29,8 +29,8 @@ export class GroqSummarizationService implements Summarize {
   }
 
   async bulletPoints(input: SummarizeInput): Promise<SummarizationResult> {
-    const stuffChain = await this.promptService.createBulletPointsChain(input.topic);
-    const text = await this.promptService.generateAnswer(stuffChain, input);
+    const stuffChain = await this.chainService.createBulletPointsChain(input.topic);
+    const text = await this.chainService.generateAnswer(stuffChain, input);
 
     return {
       url: input.url,
