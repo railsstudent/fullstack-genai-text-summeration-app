@@ -10,8 +10,6 @@ services:
       - GOOGLE_GEMINI_API_KEY=${GOOGLE_GEMINI_API_KEY}
       - GOOGLE_GEMINI_MODEL=${GOOGLE_GEMINI_MODEL}
       - MODEL_TYPE=${MODEL_TYPE}
-      - GROQ_API_KEY=${GROQ_API_KEY}
-      - GROQ_MODEL=${GROQ_MODEL}
     ports:
       - "${PORT}:${PORT}"
     networks:
