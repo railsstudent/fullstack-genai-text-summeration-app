@@ -37,9 +37,9 @@ export class Bootstrap {
   setupSwagger() {
     const config = new DocumentBuilder()
       .setTitle('Generative AI Text Summarization')
-      .setDescription('Integrate with Generative AI to summarize a web page to a target language')
+      .setDescription('Integrate with LangChain and Gemini to summarize a web page')
       .setVersion('1.0')
-      .addTag('Langchain, Gemini 1.0 Pro Model, Groq, Gemma')
+      .addTag('Langchain, Gemini 1.5 Pro Model')
       .build();
     const document = SwaggerModule.createDocument(this.app, config);
     SwaggerModule.setup('api', this.app, document);
