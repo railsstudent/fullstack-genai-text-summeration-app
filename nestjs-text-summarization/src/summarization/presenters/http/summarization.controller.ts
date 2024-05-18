@@ -1,15 +1,14 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { SUMMARIZE_SERVICE } from '~summarization/application/constants/summarize.constant';
 import { ModelProvider } from '~summarization/application/interfaces/model-provider.interface';
 import { SummarizationResult } from '~summarization/application/interfaces/summarize-result.interface';
-import { Summarize } from '~summarization/application/interfaces/summarize.interface';
 import { SummarizeDto } from '../dtos/summarize.dto';
+import { GeminiSummarizationService } from './../../application/gemini-summarization.service';
 
 @ApiTags('Text Summarization')
 @Controller('summarization')
 export class SummarizationController {
-  constructor(@Inject(SUMMARIZE_SERVICE) private service: Summarize) {}
+  constructor(private service: GeminiSummarizationService) {}
 
   @ApiBody({
     description: 'An intance of SummarizeDto',
