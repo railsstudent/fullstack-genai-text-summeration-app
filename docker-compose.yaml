@@ -9,7 +9,6 @@ services:
       - PORT=${PORT}
       - GOOGLE_GEMINI_API_KEY=${GOOGLE_GEMINI_API_KEY}
       - GOOGLE_GEMINI_MODEL=${GOOGLE_GEMINI_MODEL}
-      - MODEL_TYPE=${MODEL_TYPE}
     ports:
       - "${PORT}:${PORT}"
     networks:
