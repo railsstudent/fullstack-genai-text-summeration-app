@@ -24,40 +24,10 @@
 
 ## Description
 
-This repo uses NestJS, Angular, LangChain, and AI models to build a fullstack application to summarize a web page in the target langauge.
+This repo uses NestJS, Angular, LangChain, and AI models to build a fullstack application to summarize a web page.
 
-The NestJS application can register two LangChain integrations:
-- LangChain + Gemini API + Gemini-1.0-Pro model
-- LangChain + Groq API + Gemma-7b-it 
-
-## Registration
-
-### Enable Gemini API and Gemini 1.0 Pro model
-Change MODEL_TYPE to gemini
-
-``` TypeScript
-PORT=3000
-GOOGLE_GEMINI_API_KEY=<google gemini api key>
-GOOGLE_GEMINI_MODEL=gemini-1.0-pro
-WEB_PORT=4200
-MODEL_TYPE=gemini
-GROQ_API_KEY=<groq api key>
-GROQ_MODEL=gemma-7b-it
-```
-
-### Enable Groq API and Gemma model
-Change MODEL_TYPE to groq.
-Supported models of Groq can be found here: https://console.groq.com/docs/models
-
-``` TypeScript
-PORT=3000
-GOOGLE_GEMINI_API_KEY=<google gemini api key>
-GOOGLE_GEMINI_MODEL=gemini-1.0-pro
-WEB_PORT=4200
-MODEL_TYPE=groq
-GROQ_API_KEY=<groq api key>
-GROQ_MODEL=gemma-7b-it
-```
+The NestJS application register the following LangChain integration:
+- LangChain + Gemini API + Gemini-1.5-Pro model
 
 Google Cloud credits are provided for this project. #GeminiSprint hashtag.
 
@@ -78,11 +48,8 @@ $ npm install
 |---|---|
 | PORT   | Backend Port. Default to3000  |
 | GOOGLE_GEMINI_API_KEY  | Google Gemini API Key   |
-| GOOGLE_GEMINI_MODEL  | Google Gemini model.  Default gemini-1.0-pro  |
+| GOOGLE_GEMINI_MODEL  | Google Gemini model.  Default gemini-pro  |
 | WEB_PORT | Angular Port number |
-| MODEL_TYPE | AI Model.  Gemini or Groq  |
-| GROQ_API_KEY | Groq API KEy |
-| GROQ_MODEL | Groq model. Default to Gemma |
 
 ## Running the app in Docker
 
