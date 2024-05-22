@@ -29,7 +29,7 @@ This repo uses NestJS, Angular, LangChain, and AI models to build a fullstack ap
 The NestJS application register the following LangChain integration:
 - LangChain + Gemini API + Gemini-1.5-Pro model
 
-Google Cloud credits are provided for this project. #GeminiSprint hashtag.
+Google Cloud credits are provided for this project. #GeminiSprint.
 
 ## Installation
 ```bash
