@@ -1,6 +1,5 @@
 import { PromptTemplate } from '@langchain/core/prompts';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
-import { ChatGroq } from '@langchain/groq';
 import { Inject, Injectable } from '@nestjs/common';
 import { loadSummarizationChain, StuffDocumentsChain } from 'langchain/chains';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
@@ -10,7 +9,7 @@ import { SummarizeInput } from './interfaces/summarize-input.interface';
 
 @Injectable()
 export class SummarizationChainService {
-  constructor(@Inject(LLM) private model: ChatGoogleGenerativeAI | ChatGroq) {}
+  constructor(@Inject(LLM) private model: ChatGoogleGenerativeAI) {}
 
   createParagraphsChain(topic: string): StuffDocumentsChain {
     const topicInput = topic ? ` of {topic}` : '';
