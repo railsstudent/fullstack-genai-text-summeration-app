@@ -37,7 +37,7 @@ export class SummarizationService {
     topic: '',
   });
 
-  private bulletPointsSummization = signal<Summarization>({
+  private bulletPointsSummarization = signal<Summarization>({
     url: '',
     topic: '',
   });
@@ -52,7 +52,7 @@ export class SummarizationService {
       map((result) => result as SummarizationResult),
     );
 
-  bulletPointList$  = toObservable(this.bulletPointsSummization)
+  bulletPointList$  = toObservable(this.bulletPointsSummarization)
     .pipe(
       filter((data) => !!data.url),
       switchMap((data) =>
@@ -67,7 +67,7 @@ export class SummarizationService {
   }
 
   summarizeToBulletPoints(data: Summarization) {
-    this.bulletPointsSummization.set(data);
+    this.bulletPointsSummarization.set(data);
   }
 
   getLargeLanguageModelUsed(): Observable<LargeLanguageModelUsed> {
