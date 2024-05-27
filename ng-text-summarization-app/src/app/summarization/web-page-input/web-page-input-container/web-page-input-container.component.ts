@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, HostAttributeToken, inject, input, output, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostAttributeToken, inject, input, output } from '@angular/core';
 import { SubmittedPage } from '~app/summarization/interfaces/summarization.interface';
-import { SummarizationService } from '~app/summarization/services/summarization.service';
 import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box.component';
 
 @Component({
@@ -25,11 +24,7 @@ import { WebpageInputBoxComponent } from '../webpage-input-box/webpage-input-box
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WebPageInputContainerComponent {
-  isLoading = input.required<boolean>();
-  box = viewChild.required(WebpageInputBoxComponent);
-  
+  isLoading = input.required<boolean>();  
   title = inject(new HostAttributeToken('title'), { optional: true }) || 'Ng Text Summarization Demo';
-  summarizationService = inject(SummarizationService);
-
   submittedPage = output<SubmittedPage>();
 }
